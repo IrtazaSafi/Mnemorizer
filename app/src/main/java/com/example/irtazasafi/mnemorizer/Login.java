@@ -1,5 +1,4 @@
 package com.example.irtazasafi.mnemorizer;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -29,15 +28,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Login extends AppCompatActivity {
-//    public MonitorObject responseWait = new MonitorObject();
     public String serverResponse = "";
-    public String serverURL = "http://192.168.10.2";
+    public String serverURL = "http://192.168.10.7";
     public volatile boolean respRecieved = false;
-//    RequestQueue queue = Volley.newRequestQueue(this);
 
 
     @Override
@@ -50,8 +48,6 @@ public class Login extends AppCompatActivity {
         System.out.println("***************************************************************");
         setSupportActionBar(toolbar);
         System.out.println("***************************************************************");
-
-
     }
 
     public void makeSynchronusRequest(final String url, final String method) throws Exception {
@@ -111,40 +107,63 @@ public class Login extends AppCompatActivity {
         return true;
     }
 
-    public void login(View view) throws Exception {
+    public final static boolean isValidEmail(CharSequence target) {
+
+        return target != null && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+    }
+
+    public void showToast(String text) {
         Context context = getApplicationContext();
-        CharSequence text = "Validating Credentials";
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+    }
+
+    public void login(View view) throws Exception {
         EditText email = (EditText)findViewById(R.id.emailIn);
+
+        if(!isValidEmail(email.getText().toString())){
+
+            System.out.println("INVALID EMAIL ENTERED");
+            showToast("INVALID EMAIL ENTERED");
+            return;
+        }
         EditText password = (EditText)findViewById(R.id.passwordIn);
+
         serverResponse ="";
-        String loginRequest = serverURL+"/"+"loginRequest/"+email.getText().toString()+"/"+password.getText().toString();
+
+        String loginRequest = serverURL+"/"+"-loginRequest-"+email.getText().toString()+"-"+password.getText().toString();
         respRecieved = false;
         makeSynchronusRequest(loginRequest, "GET");
-        toast.show();
         while(respRecieved == false) {
             System.out.println("WAITING********");
         }
         respRecieved = false;
         System.out.println("SERVER RESPONSE IS :  " + serverResponse);
 
+        String resp[] = serverResponse.split("-");
+        int userID;
+        System.out.println(resp[0]);
+        if(resp[0].equals("Validated")){
+            userID = Integer.valueOf(resp[1]);
+            showToast("Login Successful");
+        } else {
+            showToast("Login Failed, either account doesn't exist or you entered invalid credentials");
+        }
 
+    }
+
+    public void signup() {
+        
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
