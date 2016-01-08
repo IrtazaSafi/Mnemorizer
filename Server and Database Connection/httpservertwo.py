@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 __author__ = 'Irtaza Safi'
 
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
@@ -5,7 +7,7 @@ from SocketServer import ThreadingMixIn
 import threading
 from databaseConnectionManager import databaseConnectionManager
 
-HOST_NAME = '192.168.10.7'
+HOST_NAME = '10.130.2.78'
 PORT = 80
 
 dbConnection = databaseConnectionManager()
@@ -31,7 +33,16 @@ class Handler(BaseHTTPRequestHandler):
                 self.wfile.write("Invalid")
         if pathArray[1] == "signUpRequest":
             print "signUpRequest recieved"
-            self.wfile.write(self.path)
+
+            id = dbConnection.createUser(pathArray[2],pathArray[3],Decimal(pathArray[4]),Decimal(pathArray[5]))
+            if id is not 0:
+                self.wfile.write("Created-"+str(id))
+                print("Account Created")
+                dbConnection.viewAllUsers()
+            else:
+                self.wfile.write("createError")
+                print ("Error Creating User")
+
 
 
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):

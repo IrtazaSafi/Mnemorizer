@@ -30,7 +30,7 @@ import java.security.NoSuchAlgorithmException;
 public class signup extends AppCompatActivity  {
 
     public String serverResponse = "";
-    public String serverURL = "http://192.168.10.7";
+    public String serverURL = "http://10.130.2.78";//"http://192.168.10.7";
     public volatile boolean respRecieved = false;
 
     LocationManager locationManager;
@@ -93,6 +93,14 @@ public class signup extends AppCompatActivity  {
         EditText password = (EditText) findViewById(R.id.passwordInSignUp);
         EditText passwordconfirm = (EditText) findViewById(R.id.confirmPasswordSignUp);
 
+        String pass = password.getText().toString();
+        String confirm = passwordconfirm.getText().toString();
+
+        if(!isValidEmail(email.getText().toString()) || !pass.equals(confirm)){
+            showToast("Either Email was invalid or Passwords did not match");
+            return;
+        }
+
 
 
 
@@ -115,10 +123,14 @@ public class signup extends AppCompatActivity  {
         while(!respRecieved){
             System.out.println("Waiting for Response");
         }
-        //String resp[] = serverResponse.split("-");
+        String resp[] = serverResponse.split("-");
         System.out.println("Response is " + serverResponse);
-
-
-
+        int userID = 0;
+        if(resp[0].equals("Created")){
+            userID = Integer.valueOf(resp[1]);
+            showToast("Account Successfully Created");
+        } else {
+            showToast("Sign Up Failed, either account already exists or you entered invalid credentials");
+        }
     }
 }

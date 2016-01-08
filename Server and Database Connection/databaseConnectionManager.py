@@ -11,9 +11,9 @@ class databaseConnectionManager:
         self.queryExecutor = self.db.cursor()
 
     def viewAllUsers(self):
-        self.queryExecutor.execute("SELECT ID,Email FROM USERS")
+        self.queryExecutor.execute("SELECT * FROM USERS")
         for row in self.queryExecutor.fetchall():
-            print str(row[0]) + " " + row[1]
+            print str(row[0]) + " " + row[1] + " " + row[2] + " " + str(row[3])+ " " +str(row[4])
 
 
     def validateUser(self, email, password):
@@ -37,7 +37,7 @@ class databaseConnectionManager:
         if (self.checkUserExists(email)):
             print "User Already exists"
 
-            return 2
+            return 0
 
         try:
             self.queryExecutor.execute("SELECT MAX(ID) FROM USERS")
@@ -51,7 +51,7 @@ class databaseConnectionManager:
 
             self.db.commit()
             print "created successfully"
-            return 1
+            return newID
 
         except:
             print "something went wrong with database query"
@@ -59,9 +59,10 @@ class databaseConnectionManager:
 
     def test(self):
 
-        self.queryExecutor.execute("SELECT Email FROM USERS")
+        self.queryExecutor.execute("SELECT * FROM USERS")
         for row in self.cur.fetchall():
-            print row[0]
+
+            print row[0] << " " << row[1] << " " << row[2] << " " << row[3];
 
 
 
@@ -71,5 +72,5 @@ class databaseConnectionManager:
 # # dbConnection.createUser("alisafi99@gmail.com", "2k16", 30.115, 20.112)
 # # dbConnection.viewAllUsers()
 #
-# dbConnection.deleteUser("irtaza.safi@gmail.com")
-# dbConnection.viewAllUsers()
+# #dbConnection.deleteUser("irtaza.safi@gmail.com")
+#dbConnection.viewAllUsers()

@@ -20,12 +20,15 @@ import com.android.volley.toolbox.Volley;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 public class Login extends AppCompatActivity {
     public String serverResponse = "";
-    public String serverURL = "http://192.168.10.7";
+    public String serverURL = "http://10.130.2.78";  //"http://192.168.10.7";
     public volatile boolean respRecieved = false;
 
 
@@ -39,6 +42,16 @@ public class Login extends AppCompatActivity {
         System.out.println("***************************************************************");
         setSupportActionBar(toolbar);
         System.out.println("***************************************************************");
+    }
+
+    public static String HashPassword(String plaintext) throws NoSuchAlgorithmException {
+        MessageDigest m = MessageDigest.getInstance("MD5");
+        m.reset();
+        m.update(plaintext.getBytes());
+        byte[] digest = m.digest();
+        BigInteger bigInt = new BigInteger(1, digest);
+        String hashtext = bigInt.toString(16);
+        return hashtext;
     }
 
     public void makeSynchronusRequest(final String url, final String method) throws Exception {
@@ -123,7 +136,7 @@ public class Login extends AppCompatActivity {
 
         serverResponse ="";
 
-        String loginRequest = serverURL+"/"+"-loginRequest-"+email.getText().toString()+"-"+password.getText().toString();
+        String loginRequest = serverURL+"/"+"-loginRequest-"+email.getText().toString()+"-"+HashPassword(password.getText().toString());
         respRecieved = false;
         makeSynchronusRequest(loginRequest, "GET");
         while(respRecieved == false) {
