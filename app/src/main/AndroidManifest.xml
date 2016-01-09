@@ -3,8 +3,8 @@
     package="com.example.irtazasafi.mnemorizer" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -30,6 +30,11 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.irtazasafi.mnemorizer.Login" />
+        </activity>
+        <activity
+            android:name=".main_deck_page"
+            android:label="@string/title_activity_main_deck_page"
+            android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
 

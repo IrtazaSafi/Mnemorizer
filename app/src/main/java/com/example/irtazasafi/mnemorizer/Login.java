@@ -149,8 +149,12 @@ public class Login extends AppCompatActivity {
         int userID;
         System.out.println(resp[0]);
         if(resp[0].equals("Validated")){
-            userID = Integer.valueOf(resp[1]);
             showToast("Login Successful");
+            userID = Integer.valueOf(resp[1]);
+            Intent main_deck_page = new Intent(this,main_deck_page.class);
+            main_deck_page.putExtra("userID",userID);
+            startActivity(main_deck_page);
+
         } else {
             showToast("Login Failed, either account doesn't exist or you entered invalid credentials");
         }

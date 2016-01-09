@@ -3,6 +3,7 @@ package com.example.irtazasafi.mnemorizer;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -129,6 +130,9 @@ public class signup extends AppCompatActivity  {
         if(resp[0].equals("Created")){
             userID = Integer.valueOf(resp[1]);
             showToast("Account Successfully Created");
+            Intent main_deck_page = new Intent(this,main_deck_page.class);
+            main_deck_page.putExtra("userID",userID);
+            startActivity(main_deck_page);
         } else {
             showToast("Sign Up Failed, either account already exists or you entered invalid credentials");
         }
