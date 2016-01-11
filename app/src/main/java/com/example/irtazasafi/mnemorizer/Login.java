@@ -38,9 +38,9 @@ public class Login extends AppCompatActivity {
         System.out.println("***************************************************************");
         setContentView(R.layout.activity_login);
         System.out.println("***************************************************************");
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+      //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         System.out.println("***************************************************************");
-        setSupportActionBar(toolbar);
+       // setSupportActionBar(toolbar);
         System.out.println("***************************************************************");
     }
 
@@ -107,7 +107,7 @@ public class Login extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
+       getMenuInflater().inflate(R.menu.menu_login, menu);
         return true;
     }
 
@@ -124,7 +124,7 @@ public class Login extends AppCompatActivity {
     }
 
     public void login(View view) throws Exception {
-        EditText email = (EditText)findViewById(R.id.emailInSignUp);
+        EditText email = (EditText)findViewById(R.id.emailInLogin);
 
         if(!isValidEmail(email.getText().toString())){
 

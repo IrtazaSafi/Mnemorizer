@@ -26,7 +26,7 @@ public class mainDeckPageListAdapter extends ArrayAdapter<String> {
         final LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.main_deck_page, parent, false);
-        final Button leftBut = (Button) rowView.findViewById(R.id.leftButton);
+        final Button leftBut = (Button) rowView.findViewById(R.id.rightButton);
 
         leftBut.setText(values[position]);
         leftBut.setOnClickListener(new View.OnClickListener() {
@@ -34,9 +34,9 @@ public class mainDeckPageListAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
 
                 //System.out.println(leftBut.getText().toString());
-                // Intent intent = new Intent(v.getContext(),lool.class);
-                //v.getContext().startActivity(intent);
-                System.out.println(leftBut.getText().toString());
+                 Intent intent = new Intent(v.getContext(),single_word_page.class);
+                  v.getContext().startActivity(intent);
+                  System.out.println(leftBut.getText().toString());
 
             }
         });

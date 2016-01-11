@@ -84,15 +84,15 @@ public class signup extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+      //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
     public void signUpAndLogin(View view) throws Exception {
         EditText email = (EditText) findViewById(R.id.emailInSignUp);
-        EditText password = (EditText) findViewById(R.id.passwordInSignUp);
-        EditText passwordconfirm = (EditText) findViewById(R.id.confirmPasswordSignUp);
+        EditText password = (EditText) findViewById(R.id.passInSignUp);
+        EditText passwordconfirm = (EditText) findViewById(R.id.passConfirmSignUp);
 
         String pass = password.getText().toString();
         String confirm = passwordconfirm.getText().toString();

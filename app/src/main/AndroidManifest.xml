@@ -41,6 +41,15 @@
             android:label="@string/title_activity_single_word_page"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".meaning_mnemonic_page"
+            android:label="@string/title_activity_meaning_mnemonic_page"
+            android:parentActivityName=".single_word_page"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.irtazasafi.mnemorizer.single_word_page" />
+        </activity>
     </application>
 
 </manifest>
