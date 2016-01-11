@@ -28,7 +28,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class Login extends AppCompatActivity {
     public String serverResponse = "";
-    public String serverURL = "http://10.130.2.78";  //"http://192.168.10.7";
+    public String serverURL = "http://192.168.10.6";//"http://10.130.2.78";
     public volatile boolean respRecieved = false;
 
 
