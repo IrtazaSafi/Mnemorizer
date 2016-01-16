@@ -74,7 +74,8 @@
         android:layout_alignLeft="@+id/button2"
         android:layout_alignStart="@+id/button2"
         android:textColor="#ffffff"
-        android:background="#0edd0b" />
+        android:background="#0edd0b"
+        android:onClick="iKnewThisWord" />
 
     <Button
         android:layout_width="190dp"
