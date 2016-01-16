@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingTop="16dp"
+    android:paddingLeft="0dp"
+    android:paddingBottom="0dp"
+    android:paddingRight="0dp"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#615f5f">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_marginLeft="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:orientation="vertical"
+        android:background="@drawable/brainpower_converted"
+        android:textAlignment="center">
+
+        <Button
+            android:layout_marginTop="300dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Type Your Custom Mnemonic Below"
+            android:background="#ffffff" />
+
+    </LinearLayout>
+
+
+    <EditText
+        android:layout_marginTop="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="119dp"
+        android:id="@+id/mnemonicInput"
+        android:layout_gravity="center_horizontal"
+        android:maxLength="100"
+        android:background="#fdfdfd" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_marginTop="0dp"
+        android:layout_height="80dp"
+        android:text="Submit Mnemonic"
+        android:id="@+id/submitMnemonic"
+        android:layout_gravity="center_horizontal"
+        android:background="#3de213"
+        android:textColor="#fefefe" />
+
+
+</LinearLayout>

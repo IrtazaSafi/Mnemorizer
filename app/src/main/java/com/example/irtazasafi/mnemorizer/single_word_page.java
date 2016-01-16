@@ -38,8 +38,8 @@ public class single_word_page extends AppCompatActivity {
         System.out.println("ON CREATE OF SINGLE_WORD_PAGE LAUNCHED");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_word_page);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
 
         //initialize views and buttons
@@ -76,8 +76,7 @@ public class single_word_page extends AppCompatActivity {
         System.out.println("********** onResume in singeWORDPAGE CALLED");
         System.out.println("*********** VALUE OF PREVIOUS INDEX IS " + prevIndex);
         int nextwordIndex = (prevIndex+1)%words.size();
-        prevIndex = prevIndex + 1;
-
+        prevIndex = nextwordIndex;
         System.out.println("********** VALUE OF NEXT WORD INDEX IS  " + nextwordIndex);
         VocabularyWord nextWord = words.get(nextwordIndex);
         currwordID = nextWord.id;

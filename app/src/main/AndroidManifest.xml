@@ -50,6 +50,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.irtazasafi.mnemorizer.single_word_page" />
         </activity>
+        <activity
+            android:name=".addCustomMnemonic"
+            android:label="@string/title_activity_add_custom_mnemonic"
+            android:parentActivityName=".meaning_mnemonic_page"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.irtazasafi.mnemorizer.meaning_mnemonic_page" />
+        </activity>
     </application>
 
 </manifest>

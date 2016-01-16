@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:fitsSystemWindows="true"
-    tools:context="com.example.irtazasafi.mnemorizer.main_deck_page">
-    <include layout="@layout/content_main_deck_page" />
+    tools:context="com.example.irtazasafi.mnemorizer.addCustomMnemonic">
+
+    <include layout="@layout/content_add_custom_mnemonic" />
+
 
 </android.support.design.widget.CoordinatorLayout>

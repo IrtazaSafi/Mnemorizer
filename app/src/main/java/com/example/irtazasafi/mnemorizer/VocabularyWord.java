@@ -15,6 +15,7 @@ public class VocabularyWord {
     @Expose public String word;
     @Expose public String meaning;
     public  int hitScore;
+    public boolean mastered;
     @Expose public ArrayList<Mnemonic> mnemonics;
 
     public VocabularyWord(String word_in,String meaning_in,int wordID_in,int deckID_in) {
@@ -23,7 +24,8 @@ public class VocabularyWord {
         meaning = meaning_in;
         deckid = deckID_in;
         mnemonics = new ArrayList<Mnemonic>();
-        hitScore = 1;
+        hitScore = 0;
+        mastered = false;
     }
 
     public void changeHitScore(int value) {

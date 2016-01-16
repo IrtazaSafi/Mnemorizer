@@ -49,7 +49,7 @@ public class mainDeckPageListAdapter extends ArrayAdapter<String> {
 
                 if (leftBut.getText().toString().equals("No Mnemonics")) { //English Mnemonics","Native Language Mnemonics
                     editor.putInt("deckid", 1);
-                } else if (leftBut.getText().toString().equals("ENGLISH MNEMONICS")) {
+                } else if (leftBut.getText().toString().equals("English Mnemonics")) {
                     editor.putInt("deckid", 2);
                 } else {
                     editor.putInt("deckid", 3);
