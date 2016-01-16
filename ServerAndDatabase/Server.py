@@ -1,16 +1,19 @@
-from decimal import Decimal
-
 __author__ = 'Irtaza Safi'
-
 from BaseHTTPServer import HTTPServer, BaseHTTPRequestHandler
 from SocketServer import ThreadingMixIn
 import threading
 from databaseConnectionManager import databaseConnectionManager
+from VocabularyWord import VocabularyWord
+import json
+from Mnemonic import Mnemonic
+import jsonpickle
+from ObjectBuilder import ObjectBuilder
 
-HOST_NAME = '10.130.2.78'
+HOST_NAME = '192.168.10.6'
 PORT = 80
 
 dbConnection = databaseConnectionManager()
+objectBuilder = ObjectBuilder()
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -33,16 +36,17 @@ class Handler(BaseHTTPRequestHandler):
                 self.wfile.write("Invalid")
         if pathArray[1] == "signUpRequest":
             print "signUpRequest recieved"
+            self.wfile.write(self.path)
 
-            id = dbConnection.createUser(pathArray[2],pathArray[3],Decimal(pathArray[4]),Decimal(pathArray[5]))
-            if id is not 0:
-                self.wfile.write("Created-"+str(id))
-                print("Account Created")
-                dbConnection.viewAllUsers()
-            else:
-                self.wfile.write("createError")
-                print ("Error Creating User")
-
+        if pathArray[1] == "test":
+            # word = VocabularyWord(1, 'apple', 1, "cool")
+            # # def __init__(self,_ID,_mnemonic,_word,_score,_creatorID,_latitude,_longitude):
+            # helper = Mnemonic(10, "cool cool afridi", "apple", 20, 1, 3.12112, 33.1414)
+            # word.mnemonics.append(helper)
+            # # data = json.dumps(word._returnAsSerializable().__dict__)
+            data = jsonpickle.encode(list(objectBuilder.generateWordObjects()))#objectBuilder.generateWordObjects() #
+            print data
+            self.wfile.write("json-" + data)
 
 
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
