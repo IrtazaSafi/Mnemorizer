@@ -2,7 +2,7 @@ __author__ = 'Irtaza Safi'
 from json import JSONEncoder
 
 
-class Mnemonic(JSONEncoder):
+class Mnemonic(object):
     def __init__(self,_ID,_mnemonic,_wordid,_creatorID,_latitude,_longitude,_score):
         self.id = _ID
         self.mnemonic = _mnemonic

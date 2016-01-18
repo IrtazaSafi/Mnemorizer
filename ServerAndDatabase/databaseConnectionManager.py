@@ -5,6 +5,7 @@ __author__ = 'Irtaza Safi'
 
 import MySQLdb
 
+
 class databaseConnectionManager:
     def __init__(self):
         self.db = MySQLdb.connect(host="localhost",  # your host, usually localhost
@@ -29,7 +30,7 @@ class databaseConnectionManager:
 
     def checkUserExists(self, email):
         self.queryExecutor.execute("SELECT id FROM USERS WHERE email =%s", (email))
-        if self.queryExecutor.fetchone()!= None:
+        if self.queryExecutor.fetchone() != None:
 
             return True
         else:
@@ -45,7 +46,6 @@ class databaseConnectionManager:
         try:
             self.queryExecutor.execute("SELECT MAX(id) FROM USERS")
             returnValue = self.queryExecutor.fetchone()[0]
-
 
             newID = returnValue + 1;
             self.queryExecutor.execute(
@@ -66,17 +66,37 @@ class databaseConnectionManager:
         for row in self.cur.fetchall():
             print row[0]
 
-
     def fetchWords(self):
-        self.queryExecutor.execute("SELECT WORDS.id,WORDS.word,WORDS.deckid,MEANINGS.meaning FROM WORDS,MEANINGS WHERE WORDS.id = MEANINGS.wordid")
+        self.queryExecutor.execute(
+            "SELECT WORDS.id,WORDS.word,WORDS.deckid,MEANINGS.meaning FROM WORDS,MEANINGS WHERE WORDS.id = MEANINGS.wordid")
         return self.queryExecutor.fetchall()
 
-    def fetchMnemonicsForWord(self,_id):
-        self.queryExecutor.execute("SELECT DISTINCT MNEMONICS.id,MNEMONICS.mnemonic,MNEMONICS.wordid,MNEMONICS.creatorid,MNEMONICS.latitude,MNEMONICS.longitude,MNEMONICS.score  FROM WORDS,MNEMONICS WHERE MNEMONICS.wordid = %s",(_id))
+    def fetchMnemonicsForWord(self, _id):
+        self.queryExecutor.execute(
+            "SELECT DISTINCT MNEMONICS.id,MNEMONICS.mnemonic,MNEMONICS.wordid,MNEMONICS.creatorid,MNEMONICS.latitude,MNEMONICS.longitude,MNEMONICS.score  FROM WORDS,MNEMONICS WHERE MNEMONICS.wordid = %s",
+            (_id))
         return self.queryExecutor.fetchall()
 
+    def createMnemonic(self, mnemonic, wordid, creatorid, latitude, longitude):
+        self.queryExecutor.execute("SELECT MAX(id) FROM MNEMONICS")
+        returnValue = self.queryExecutor.fetchone()[0]
+        newID = returnValue + 1
+        score = 0
 
-#
-# dbConnection = databaseConnectionManager()
-#
-# dbConnection.viewAllUsers()
+        self.queryExecutor.execute("INSERT INTO MNEMONICS(id,mnemonic,wordid,creatorid,latitude,longitude,score) VALUES (%s,%s,%s,%s,%s,%s,%s)",
+                                   (newID,mnemonic,wordid,creatorid,latitude,longitude,score))
+
+        self.db.commit()
+        print "mnemonic inserted successfuly"
+        return newID
+
+
+        print "error submitting to database"
+        return 0
+
+
+#dbConnection = databaseConnectionManager()
+
+#dbConnection.createMnemonic("cool cool safidi",5,1,34.5534,74.34434)
+
+#dbConnection.viewAllUsers()

@@ -45,7 +45,7 @@ import java.util.List;
 
 public class Login extends AppCompatActivity {
     public String serverResponse = "";
-    public String serverURL = "http://192.168.10.6";//"http://192.168.10.6";//
+    public String serverURL = "http://10.130.2.78";//"http://192.168.10.6";//
     public volatile boolean respRecieved = false;
     public volatile boolean connectionError = false;
     ProgressBar spinner;

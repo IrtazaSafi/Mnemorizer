@@ -8,12 +8,14 @@ import json
 from Mnemonic import Mnemonic
 import jsonpickle
 from ObjectBuilder import ObjectBuilder
+import urllib
 
-HOST_NAME = '192.168.10.6'
+HOST_NAME = '10.130.2.78'
 PORT = 80
 
 dbConnection = databaseConnectionManager()
 objectBuilder = ObjectBuilder()
+#sub = Mnemonic(0,0,0,0,0,0,0)
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -47,6 +49,36 @@ class Handler(BaseHTTPRequestHandler):
             data = jsonpickle.encode(list(objectBuilder.generateWordObjects()))#objectBuilder.generateWordObjects() #
             print data
             self.wfile.write("json-" + data)
+
+        if pathArray[1] == "mnemonicSubmission":
+
+            rawRequestVector = urllib.unquote_plus(self.path).decode('utf8').split('-')
+
+            creatorid = int(rawRequestVector[2])
+            wordid = int(rawRequestVector[3])
+
+            mnemonic = rawRequestVector[4]
+            latitude = float(rawRequestVector[5])
+            longitude = float(rawRequestVector[6])
+
+            code = dbConnection.createMnemonic(mnemonic,wordid,creatorid,latitude,longitude)
+
+            if code is not 0:
+                self.wfile.write("success-" + str(code))
+
+            else:
+                self.wfile.write("dbQueryError")
+
+
+
+
+
+
+
+
+
+
+
 
 
 class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):

@@ -168,7 +168,14 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         rankDisplay.setText(Integer.toString(index+1));
     }
 
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public void addCustomMnemonic(View v) {
+
+        editor.putInt("wordid",currWordID);
+        editor.putInt("creatorid",globalData.userID);
+
+        editor.apply();
+
         Intent intent = new Intent(this,addCustomMnemonic.class);
         startActivity(intent);
     }

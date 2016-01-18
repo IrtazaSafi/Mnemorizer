@@ -12,10 +12,12 @@ public class DataManager {
     public int userID;
     public String email;
     public ArrayList<VocabularyWord> vocabularyWords;
+    public String serverURL;
     public DataManager(int _userID,String _email) {
         userID = _userID;
         email = _email;
         vocabularyWords = new ArrayList<VocabularyWord>();
+        serverURL = "http://10.130.2.78";
     }
 
     public ArrayList<VocabularyWord> getWordsforDeck(int _deckID){
@@ -36,6 +38,14 @@ public class DataManager {
             }
         }
         return null;
+    }
+
+    public void putMnemonicforWord(int _wordid,Mnemonic mnemonic) {
+        for (VocabularyWord word : vocabularyWords) {
+            if (word.id == _wordid) {
+                word.mnemonics.add(mnemonic);
+            }
+        }
     }
 
 }

@@ -33,8 +33,9 @@
         android:layout_height="119dp"
         android:id="@+id/mnemonicInput"
         android:layout_gravity="center_horizontal"
-        android:maxLength="100"
-        android:background="#fdfdfd" />
+        android:background="#fdfdfd"
+        android:inputType="text"
+        android:text=""/>
 
     <Button
         android:layout_width="match_parent"
@@ -44,7 +45,8 @@
         android:id="@+id/submitMnemonic"
         android:layout_gravity="center_horizontal"
         android:background="#3de213"
-        android:textColor="#fefefe" />
+        android:textColor="#fefefe"
+        android:onClick="submitMnemonic"/>
 
 
 </LinearLayout>
