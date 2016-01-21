@@ -16,6 +16,8 @@ public class Mnemonic {
     @Expose public double latitude;
     @Expose public double longitude;
 
+    public boolean liked;
+
     public Mnemonic(int _ID,String _mnemonic,int _wordid,int _score,int _creatorID,double _latitude, double _longitude){
         id = _ID;
         mnemonic = _mnemonic;
@@ -24,5 +26,6 @@ public class Mnemonic {
         creatorid = _creatorID;
         latitude = _latitude;
         longitude = _longitude;
+        liked = false;
     }
 }

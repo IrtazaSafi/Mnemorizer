@@ -70,6 +70,24 @@ class Handler(BaseHTTPRequestHandler):
                 self.wfile.write("dbQueryError")
 
 
+        if pathArray[1] == "ratingQuery":
+            id = int(pathArray[3])
+            if pathArray[2] == "thumbsUp":
+                code = dbConnection.giveThumbsUp(id)
+                if code is not 0:
+                    self.wfile.write("successLIKE")
+                else:
+                    self.wfile.write("dbQueryError")
+
+            else:
+                code = dbConnection.giveThumbsDown(id)
+                if code is not 0:
+                    self.wfile.write("successUNLIKE")
+                else:
+                    self.wfile.write("dbQueryError")
+
+
+
 
 
 

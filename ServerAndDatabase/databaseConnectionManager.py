@@ -1,4 +1,5 @@
 import json
+import traceback
 from VocabularyWord import VocabularyWord
 
 __author__ = 'Irtaza Safi'
@@ -93,6 +94,29 @@ class databaseConnectionManager:
 
         print "error submitting to database"
         return 0
+
+    def giveThumbsUp(self,id):
+
+        self.queryExecutor.execute("UPDATE MNEMONICS SET score = score+1 WHERE id=%s",(id))
+        self.db.commit()
+        return 1
+
+
+        traceback.print_exception()
+        print("error updating database")
+        return 0
+
+    def giveThumbsDown(self,id):
+
+        self.queryExecutor.execute("UPDATE MNEMONICS SET score = score-1 WHERE id=%s",(id))
+        self.db.commit()
+        return 1
+
+
+        traceback.print_exception()
+        print("error updating database")
+        return 0
+
 
 
 #dbConnection = databaseConnectionManager()
