@@ -51,6 +51,15 @@ public class mainDeckPageListAdapter extends ArrayAdapter<String> {
                     editor.putInt("deckid", 1);
                 } else if (leftBut.getText().toString().equals("English Mnemonics")) {
                     editor.putInt("deckid", 2);
+
+                } else if(leftBut.getText().toString().equals("Sign Out")) {
+
+                    editor.clear();
+                    editor.apply();
+                    Intent intent = new Intent(context,Login.class);
+                    context.startActivity(intent);
+                    return;
+
                 } else {
                     editor.putInt("deckid", 3);
                 }

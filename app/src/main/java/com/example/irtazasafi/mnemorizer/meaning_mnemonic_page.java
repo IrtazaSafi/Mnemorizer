@@ -187,6 +187,7 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         mnemonicDisplay.setText(mnemonics.get(index).mnemonic);
         currentMnemonic = mnemonics.get(index);
         rankDisplay.setText(Integer.toString(index + 1));
+        likeCounter.setText(Integer.toString(currentMnemonic.score));
 
     }
 
@@ -206,6 +207,7 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         mnemonicDisplay.setText(mnemonics.get(index).mnemonic);
         currentMnemonic = mnemonics.get(index);
         rankDisplay.setText(Integer.toString(index + 1));
+        likeCounter.setText(Integer.toString(currentMnemonic.score));
     }
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)

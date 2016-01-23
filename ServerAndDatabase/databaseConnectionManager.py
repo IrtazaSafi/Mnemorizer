@@ -39,12 +39,11 @@ class databaseConnectionManager:
             return False
 
     def createUser(self, email, password, latitude, longitude):
-        if (self.checkUserExists(email)):
-            print "User Already exists"
-
-            return 2
-
         try:
+
+            if (self.checkUserExists(email)):
+                print "User Already exists"
+                return -1
             self.queryExecutor.execute("SELECT MAX(id) FROM USERS")
             returnValue = self.queryExecutor.fetchone()[0]
 
@@ -55,7 +54,7 @@ class databaseConnectionManager:
 
             self.db.commit()
             print "created successfully"
-            return 1
+            return newID
 
         except:
             print "something went wrong with database query"

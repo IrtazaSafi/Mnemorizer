@@ -4,13 +4,16 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,11 +22,16 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -31,8 +39,11 @@ import java.security.NoSuchAlgorithmException;
 public class signup extends AppCompatActivity  {
 
     public String serverResponse = "";
-    public String serverURL = "http://192.168.10.6"; //"http://10.130.2.78";//
+    public String serverURL = "http://192.168.10.7"; //"http://10.130.2.78";//
     public volatile boolean respRecieved = false;
+    public Context context = this;
+    public SharedPreferences preferences;
+    DataManager globalData;
 
     LocationManager locationManager;
 
@@ -51,28 +62,6 @@ public class signup extends AppCompatActivity  {
         return hashtext;
     }
 
-    public void makeSynchronusRequest(final String url, final String method) throws Exception {
-        Thread requester = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    HttpURLConnection koka = (HttpURLConnection) new URL(url).openConnection();
-                    koka.setRequestMethod(method);
-                    InputStream response = koka.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(response));
-                    for (String line; (line = reader.readLine()) != null; ) {
-                        serverResponse = serverResponse + line;
-                    }
-                    System.out.println(serverResponse);
-                    respRecieved = true;
-                } catch (Exception e) {
-                }
-            }
-
-        });
-        requester.start();
-    }
-
     public void showToast(String text) {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
@@ -84,12 +73,15 @@ public class signup extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-      //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+
+        globalData = new DataManager(0,"");
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
     public void signUpAndLogin(View view) throws Exception {
+
         EditText email = (EditText) findViewById(R.id.emailInSignUp);
         EditText password = (EditText) findViewById(R.id.passInSignUp);
         EditText passwordconfirm = (EditText) findViewById(R.id.passConfirmSignUp);
@@ -101,10 +93,6 @@ public class signup extends AppCompatActivity  {
             showToast("Either Email was invalid or Passwords did not match");
             return;
         }
-
-
-
-
         GPSTracker gps = new GPSTracker(this);
         if(!gps.canGetLocation()) {
             showToast("PLEASE ENABLE GPS AND TRY AGAIN");
@@ -114,27 +102,103 @@ public class signup extends AppCompatActivity  {
         double latitude = gps.getLatitude();
         double longitude = gps.getLongitude();
 
+        globalData.email = email.getText().toString();
 
         String query = serverURL+"/"+"-signUpRequest-"+email.getText().toString()+"-"+HashPassword(password.getText().toString())+
                 "-"+String.valueOf(latitude)+"-"+String.valueOf(longitude);
 
-        serverResponse ="";
-        respRecieved= false;
-        makeSynchronusRequest(query,"GET");
-        while(!respRecieved){
-            System.out.println("Waiting for Response");
+        AsyncTaskRunner runner = new AsyncTaskRunner();
+
+        runner.execute(query);
+
+    }
+
+    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
+
+        private String makeHTTPRequest(String url,String method){
+
+            String serverReply ="";
+            try {
+                HttpURLConnection koka = (HttpURLConnection) new URL(url).openConnection();
+                koka.setRequestMethod(method);
+                InputStream response = koka.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(response));
+                koka.setConnectTimeout(1000);
+                koka.setReadTimeout(1000);
+                for (String line; (line = reader.readLine()) != null; ) {
+                    serverReply = serverReply+line;
+                }
+                //System.out.println(serverReply);
+            } catch (SocketTimeoutException e) {
+                e.printStackTrace();
+                return "error";
+            } catch(IOException e) {
+                e.printStackTrace();
+                return "error";
+            }
+            return serverReply;
         }
-        String resp[] = serverResponse.split("-");
-        System.out.println("Response is " + serverResponse);
-        int userID = 0;
-        if(resp[0].equals("Created")){
-            userID = Integer.valueOf(resp[1]);
-            showToast("Account Successfully Created");
-            Intent main_deck_page = new Intent(this,main_deck_page.class);
-            main_deck_page.putExtra("userID",userID);
-            startActivity(main_deck_page);
-        } else {
-            showToast("Sign Up Failed, either account already exists or you entered invalid credentials");
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            return makeHTTPRequest(params[0],"GET");
+        }
+
+        @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+        @Override
+        protected void onPostExecute(String result) {
+
+            System.out.println("********** RESULT IS  " + result);
+
+            String [] resVector = result.split("-");
+
+            if(resVector[0].equals("error")) {
+
+                if(resVector[1].equals("Exists")) {
+
+                    showToast("This User Already Exists");
+                } else {
+                    showToast("Error with Database, please retry later");
+                }
+
+            } else if (resVector[0].equals("success")) {
+                Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+
+                int userid = Integer.parseInt(resVector[1]);
+                String valson = resVector[2];
+
+                VocabularyWord [] words = gson.fromJson(valson,VocabularyWord[].class);
+
+                globalData.userID = userid;
+
+                for(int i = 0 ; i<words.length;i++) {
+
+                    globalData.vocabularyWords.add(words[i]);
+                }
+
+                Gson serializer = new Gson();
+
+                String serializedData = serializer.toJson(globalData);
+
+                preferences.edit().putString("globalData", serializedData);
+
+                preferences.edit().putBoolean("loggedIn", true);
+
+                preferences.edit().apply();
+
+                showToast("ACCOUNT SUCCESSFULLY CREATED");
+
+                Intent intent = new Intent(context,main_deck_page.class);
+
+                startActivity(intent);
+            }
+
+
         }
     }
+
+
+
+
 }

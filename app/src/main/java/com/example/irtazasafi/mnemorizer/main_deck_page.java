@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 public class main_deck_page extends ListActivity {
 
     public SharedPreferences preferences;
-    public static String decks[] = {"No Mnemonics","English Mnemonics","Native Language Mnemonics","Idiot Mamo(do not click)","does it scroll?","add some more"};
+    public static String decks[] = {"No Mnemonics","English Mnemonics","Native Language Mnemonics","Sign Out"};
     @Override
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +36,11 @@ public class main_deck_page extends ListActivity {
 
         ArrayAdapter<String> listMaker = new mainDeckPageListAdapter(this,decks,PreferenceManager.getDefaultSharedPreferences(this));
         setListAdapter(listMaker);
+
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 

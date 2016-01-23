@@ -10,7 +10,7 @@ import jsonpickle
 from ObjectBuilder import ObjectBuilder
 import urllib
 
-HOST_NAME = '10.130.2.78'
+HOST_NAME = '192.168.10.7'
 PORT = 80
 
 dbConnection = databaseConnectionManager()
@@ -32,13 +32,37 @@ class Handler(BaseHTTPRequestHandler):
             id = dbConnection.validateUser(pathArray[2], pathArray[3])
             # print "id"+ id
             if id is not 0:
-                self.wfile.write("Validated-" + str(id))
+                data = jsonpickle.encode(list(objectBuilder.generateWordObjects()))
+                self.wfile.write("Validated-" + str(id)+"-"+data)
                 print "Validated"
             else:
                 self.wfile.write("Invalid")
+
+        if pathArray[1] == "loginRequestVerif":
+            data = jsonpickle.encode(list(objectBuilder.generateWordObjects()))
+            self.wfile.write("Validated-" + str(pathArray[2])+"-"+data)
+            print "Validated"
+
+
         if pathArray[1] == "signUpRequest":
             print "signUpRequest recieved"
-            self.wfile.write(self.path)
+
+
+            email = pathArray[2]
+            password = pathArray[3]
+            latitude = pathArray[4]
+            longitude = pathArray[5]
+
+            code = dbConnection.createUser(email,password,latitude,longitude)
+
+            if code is -1:
+                self.wfile.write("error-Exists")
+
+            elif code is 0:
+                self.wfile.write("error-dbError")
+            else:
+                data = jsonpickle.encode(list(objectBuilder.generateWordObjects()))
+                self.wfile.write("success-"+ str(code)+"-"+data)
 
         if pathArray[1] == "test":
             # word = VocabularyWord(1, 'apple', 1, "cool")

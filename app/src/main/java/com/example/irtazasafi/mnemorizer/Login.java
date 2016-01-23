@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -45,12 +46,14 @@ import java.util.List;
 
 public class Login extends AppCompatActivity {
     public String serverResponse = "";
-    public String serverURL = "http://10.130.2.78";//"http://192.168.10.6";//
+    public String serverURL = "http://192.168.10.7";//"http://192.168.10.6";//
     public volatile boolean respRecieved = false;
     public volatile boolean connectionError = false;
     ProgressBar spinner;
     public Context context = this;
-   public SharedPreferences preferences;
+    public SharedPreferences preferences;
+    public SharedPreferences.Editor editor;
+    DataManager globalData;
 
     private class AsyncTaskRunner extends AsyncTask<String, String, String> {
 
@@ -94,16 +97,58 @@ public class Login extends AppCompatActivity {
             int userID;
             System.out.println(resp[0]);
         if(resp[0].equals("Validated")){
-            showToast("Login Successful");
+
+            // check if global Data exists
             userID = Integer.valueOf(resp[1]);
+
             Intent main_deck_page = new Intent(context,main_deck_page.class);
-            main_deck_page.putExtra("userID",userID);
+            main_deck_page.putExtra("userID", userID);
+            if(preferences.getString("globalData","empty").equals("empty")) {
+                // use newly created globalData
+                Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                Gson serializer = new Gson();
+                VocabularyWord [] words = gson.fromJson(resp[2], VocabularyWord[].class);
+                globalData.userID = userID;
+                for(int i = 0 ; i < words.length;i++) {
+                    globalData.vocabularyWords.add(words[i]);
+                }
+
+                String serializedData = serializer.toJson(globalData);
+
+                editor.putString("globalData",serializedData);
+                editor.apply();
+
+            } else {
+                Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+                Gson serializer = new Gson();
+                // load existing data
+                globalData = serializer.fromJson(preferences.getString("globalData","empty"),DataManager.class);
+                //
+                VocabularyWord [] words = gson.fromJson(resp[2],VocabularyWord[].class);
+
+                globalData.vocabularyWords.clear();
+
+                for(int i = 0 ; i < words.length;i++) {
+                    globalData.vocabularyWords.add(words[i]);
+                }
+
+                String serializedData = serializer.toJson(globalData);
+               editor.putString("globalData",serializedData);
+                editor.apply();
+            }
+
+            showToast("Login Successful");
+            editor.putBoolean("loggedIn", true);
+            editor.apply();
+
             spinner.setVisibility(View.INVISIBLE);
             startActivity(main_deck_page);
            // fetchData();
         } else {
             showToast("Login Failed, either account doesn't exist or you entered invalid credentials");
         }
+
+
             if(resp[0].equals("json")){
                 System.out.println("JSON RECIEVED");
                 Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
@@ -153,9 +198,37 @@ public class Login extends AppCompatActivity {
         spinner= (ProgressBar)findViewById(R.id.spinner);
         spinner.setVisibility(View.GONE);
             preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            editor = preferences.edit();
       //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
        // setSupportActionBar(toolbar);
+       //
+        globalData = new DataManager(0,"");
 
+    }
+
+
+
+    protected void onResume() {
+
+        System.out.println("*******************************in ON RESUME boolean value is " + preferences.getBoolean("loggedIn",false));
+        System.out.println("*************************************" + preferences.getString("globalData","empty"));
+
+        if(preferences.getBoolean("loggedIn",false)) {
+
+            Gson serializer = new Gson();
+            DataManager globalData = serializer.fromJson(preferences.getString("globalData", "empty"), DataManager.class);
+
+            System.out.println("**********************curruser ID IS" + globalData.userID);
+
+            String loginRequest = serverURL+"/"+"-loginRequestVerif" + "-"+Integer.toString(globalData.userID);
+            AsyncTaskRunner runner = new AsyncTaskRunner();
+            runner.execute(loginRequest);
+        }
+
+
+
+
+        super.onResume();
     }
 
     public static String HashPassword(String plaintext) throws NoSuchAlgorithmException {
@@ -260,6 +333,7 @@ public class Login extends AppCompatActivity {
         String loginRequest = serverURL+"/"+"-loginRequest-"+email.getText().toString()+"-"+
                 HashPassword(password.getText().toString());
         spinner.setVisibility(View.VISIBLE);
+        globalData.email = email.getText().toString();
         AsyncTaskRunner runner = new AsyncTaskRunner();
         runner.execute(loginRequest);
 
