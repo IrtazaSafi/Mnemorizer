@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +30,8 @@ import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class meaning_mnemonic_page extends AppCompatActivity {
     public SharedPreferences preferences;
@@ -57,7 +61,10 @@ public class meaning_mnemonic_page extends AppCompatActivity {
     public VocabularyWord currentWord;
     public int mnemonicIndex;
 
+    public Button locality;
     public Mnemonic currentMnemonic = null;
+
+    public Geocoder gcd;
 
     public void showToast(String text) {
         Context context = getApplicationContext();
@@ -73,13 +80,17 @@ public class meaning_mnemonic_page extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
 
         // initialize variables
+        //this.overridePendingTransition(R.anim.slide_right,R.anim.slide_left);
+
 
         wordDisplay = (TextView)findViewById(R.id.wordDisplay);
         meaningDisplay = (TextView)findViewById(R.id.meaningDisplay);
         iKnew = (Button)findViewById(R.id.iKnew);
         leftButton = (Button)findViewById(R.id.leftButton);
         rightButton = (Button)findViewById(R.id.rightButton);
+        locality = (Button)findViewById(R.id.locality);
         //rightButton.setBackgroundColor(Color.);
+        gcd = new Geocoder(this, Locale.getDefault());;
 
         mnemonicDisplay = (Button)findViewById(R.id.mnemonicsDisplay);
         masteredDisplay = (Button)findViewById(R.id.masteredDisplay);
@@ -116,8 +127,20 @@ public class meaning_mnemonic_page extends AppCompatActivity {
             mnemonicDisplay.setText("No Mnemonics Available");
             rankDisplay.setText("0");
         } else {
+
             mnemonicDisplay.setText(mnemonics.get(0).mnemonic);
             currentMnemonic = mnemonics.get(0);
+            String localAddress = "";
+            try {
+                List<Address> addresses = gcd.getFromLocation(currentMnemonic.latitude, currentMnemonic.longitude, 1);
+                localAddress = addresses.get(0).getLocality();
+                String further = addresses.get(0).getSubLocality();
+                locality.setText(localAddress + "," + further);
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             likeCounter.setText(Integer.toString(currentMnemonic.score));
             if(mnemonics.get(0).liked == true) {
                 thumbsUp.setBackgroundResource(R.drawable.thumbsupblue);
@@ -173,7 +196,7 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void rightClicked(View v) {
+    public void rightClicked(View v) throws IOException {
         if(mnemonics.size() == 0) {
             return;
         }
@@ -186,12 +209,16 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         }
         mnemonicDisplay.setText(mnemonics.get(index).mnemonic);
         currentMnemonic = mnemonics.get(index);
+        List<Address> addresses = gcd.getFromLocation(currentMnemonic.latitude,currentMnemonic.longitude, 1);
+        String localAddress = addresses.get(0).getLocality();
+        String further = addresses.get(0).getSubLocality();
+        locality.setText(localAddress + "," + further);
         rankDisplay.setText(Integer.toString(index + 1));
         likeCounter.setText(Integer.toString(currentMnemonic.score));
 
     }
 
-    public void leftClicked(View v) {
+    public void leftClicked(View v) throws IOException {
         if(mnemonics.size() == 0) {
             return;
         }
@@ -206,6 +233,10 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         mnemonicIndex = index;
         mnemonicDisplay.setText(mnemonics.get(index).mnemonic);
         currentMnemonic = mnemonics.get(index);
+        List<Address> addresses = gcd.getFromLocation(currentMnemonic.latitude,currentMnemonic.longitude, 1);
+        String localAddress = addresses.get(0).getLocality();
+        String further = addresses.get(0).getSubLocality();
+        locality.setText(localAddress + "," + further);
         rankDisplay.setText(Integer.toString(index + 1));
         likeCounter.setText(Integer.toString(currentMnemonic.score));
     }

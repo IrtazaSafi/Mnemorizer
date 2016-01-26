@@ -10,7 +10,7 @@ import jsonpickle
 from ObjectBuilder import ObjectBuilder
 import urllib
 
-HOST_NAME = '192.168.10.7'
+HOST_NAME = '10.130.2.78'
 PORT = 80
 
 dbConnection = databaseConnectionManager()
@@ -30,15 +30,21 @@ class Handler(BaseHTTPRequestHandler):
 
         if pathArray[1] == "loginRequest":
             id = dbConnection.validateUser(pathArray[2], pathArray[3])
+            latitude = float(pathArray[4])
+            longitude = float(pathArray[5])
             # print "id"+ id
             if id is not 0:
-                data = jsonpickle.encode(list(objectBuilder.generateWordObjects()))
+                data = jsonpickle.encode(list(objectBuilder.generateWordObjects(latitude,longitude)))
+                dbConnection.updateUserLocation(id,latitude,longitude)
                 self.wfile.write("Validated-" + str(id)+"-"+data)
                 print "Validated"
             else:
                 self.wfile.write("Invalid")
 
         if pathArray[1] == "loginRequestVerif":
+            latitude = float(pathArray[3])
+            longitude = float(pathArray[4])
+            dbConnection.updateUserLocation(int(pathArray[2]),latitude,longitude)
             data = jsonpickle.encode(list(objectBuilder.generateWordObjects()))
             self.wfile.write("Validated-" + str(pathArray[2])+"-"+data)
             print "Validated"

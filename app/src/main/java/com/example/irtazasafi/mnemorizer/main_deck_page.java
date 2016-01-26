@@ -24,7 +24,9 @@ public class main_deck_page extends ListActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_main_deck_page);
 
-       // fetchData();
+        //this.overridePendingTransition(R.anim.slide_right,R.anim.slide_left);
+
+        // fetchData();
 //        preferences = PreferenceManager.getDefaultSharedPreferences(this);
 //
 //        Gson gson = new Gson();

@@ -117,6 +117,8 @@ class databaseConnectionManager:
         return 0
 
 
+    def updateUserLocation(self,id,latitude,longitude):
+        self.queryExecutor.execute("UPDATE USERS SET latitude=%s,longitude=%s WHERE id =%s",(id,latitude,longitude))
 
 #dbConnection = databaseConnectionManager()
 

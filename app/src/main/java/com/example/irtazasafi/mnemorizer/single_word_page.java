@@ -41,6 +41,9 @@ public class single_word_page extends AppCompatActivity {
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
+       // this.overridePendingTransition(R.anim.slide_left,R.anim.slide_right);
+
+
 
         //initialize views and buttons
 

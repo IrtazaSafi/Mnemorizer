@@ -46,7 +46,7 @@ import java.util.List;
 
 public class Login extends AppCompatActivity {
     public String serverResponse = "";
-    public String serverURL = "http://192.168.10.7";//"http://192.168.10.6";//
+    public String serverURL = "http://10.130.2.78";//"http://192.168.10.6";//
     public volatile boolean respRecieved = false;
     public volatile boolean connectionError = false;
     ProgressBar spinner;
@@ -115,7 +115,7 @@ public class Login extends AppCompatActivity {
 
                 String serializedData = serializer.toJson(globalData);
 
-                editor.putString("globalData",serializedData);
+                editor.putString("globalData", serializedData);
                 editor.apply();
 
             } else {
@@ -133,7 +133,7 @@ public class Login extends AppCompatActivity {
                 }
 
                 String serializedData = serializer.toJson(globalData);
-               editor.putString("globalData",serializedData);
+               editor.putString("globalData", serializedData);
                 editor.apply();
             }
 
@@ -203,8 +203,10 @@ public class Login extends AppCompatActivity {
        // setSupportActionBar(toolbar);
        //
         globalData = new DataManager(0,"");
+           // this.overridePendingTransition(R.anim.slide_left,R.anim.slide_right);
 
-    }
+
+        }
 
 
 
@@ -215,12 +217,21 @@ public class Login extends AppCompatActivity {
 
         if(preferences.getBoolean("loggedIn",false)) {
 
+            GPSTracker gps = new GPSTracker(this);
+            if(!gps.canGetLocation()) {
+                showToast("PLEASE ENABLE GPS AND TRY AGAIN");
+                gps.showSettingsAlert();
+                return;
+            }
+            double latitude = gps.getLatitude();
+            double longitude = gps.getLongitude();
             Gson serializer = new Gson();
             DataManager globalData = serializer.fromJson(preferences.getString("globalData", "empty"), DataManager.class);
 
             System.out.println("**********************curruser ID IS" + globalData.userID);
 
-            String loginRequest = serverURL+"/"+"-loginRequestVerif" + "-"+Integer.toString(globalData.userID);
+            String loginRequest = serverURL+"/"+"-loginRequestVerif" + "-"+Integer.toString(globalData.userID)+"-"+String.valueOf(latitude)+
+                    "-"+String.valueOf(longitude);
             AsyncTaskRunner runner = new AsyncTaskRunner();
             runner.execute(loginRequest);
         }
@@ -330,13 +341,20 @@ public class Login extends AppCompatActivity {
         }
         EditText password = (EditText)findViewById(R.id.passwordIn);
         serverResponse ="";
+        GPSTracker gps = new GPSTracker(this);
+        if(!gps.canGetLocation()) {
+            showToast("PLEASE ENABLE GPS AND TRY AGAIN");
+            gps.showSettingsAlert();
+            return;
+        }
+        double latitude = gps.getLatitude();
+        double longitude = gps.getLongitude();
         String loginRequest = serverURL+"/"+"-loginRequest-"+email.getText().toString()+"-"+
-                HashPassword(password.getText().toString());
+                HashPassword(password.getText().toString())+"-"+String.valueOf(latitude)+"-"+String.valueOf(longitude);
         spinner.setVisibility(View.VISIBLE);
         globalData.email = email.getText().toString();
         AsyncTaskRunner runner = new AsyncTaskRunner();
         runner.execute(loginRequest);
-
     }
 
 

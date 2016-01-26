@@ -4,6 +4,8 @@ from VocabularyWord import VocabularyWord
 from Mnemonic import Mnemonic
 import jsonpickle
 import json
+from math import cos, asin, sqrt
+
 
 
 class ObjectBuilder:
@@ -11,23 +13,36 @@ class ObjectBuilder:
 
         self.dbConnection = databaseConnectionManager()
 
-    def generateWordObjects(self):
+    def distance(self,lat1, lon1, lat2, lon2):
+
+
+        p = 0.017453292519943295
+        a = 0.5 - cos((lat2 - lat1) * p)/2 + cos(lat1 * p) * cos(lat2 * p) * (1 - cos((lon2 - lon1) * p)) / 2
+        return 12742 * asin(sqrt(a))
+
+    def generateWordObjects(self,latitude,longitude):
         wordList = []
         finaloutput = ""
         for row in self.dbConnection.fetchWords():
+
+
             wordList.append(VocabularyWord(row[0], row[1], row[2], row[3]))
 
 
         for word in wordList:
             mnemonics = self.dbConnection.fetchMnemonicsForWord(word.id)
             for row in mnemonics:
-                word.mnemonics.append(Mnemonic(row[0],row[1],row[2],row[3],float(row[4]),float(row[5]),row[6]))
-                #sex = json.dumps(word.mnemonics[0].__dict__)
-                #print word.word + " " + mnemonic[0] + " " + str(word.deckid)
+                mnemonic = Mnemonic(row[0],row[1],row[2],row[3],float(row[4]),float(row[5]),row[6])
+                mnemonic.priority = self.distance(latitude,longitude,mnemonic.latitude,mnemonic.longitude)
+                word.mnemonics.append(mnemonic)
 
-            jsonWord = "-" +jsonpickle.encode(word._returnAsSerializable())
-            #jsonWord = "-" +json.dumps(word._returnAsSerializable().__dict__)
-            finaloutput = finaloutput + jsonWord
+
+            # jsonWord = "-" +jsonpickle.encode(word._returnAsSerializable())
+            # #jsonWord = "-" +json.dumps(word._returnAsSerializable().__dict__)
+            # finaloutput = finaloutput + jsonWord
+
+        for word in wordList:
+            word.mnemonics.sort(key=lambda x:x.priority,reverse =False)
 
 
         return wordList

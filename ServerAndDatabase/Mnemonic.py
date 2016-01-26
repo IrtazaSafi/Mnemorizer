@@ -11,5 +11,6 @@ class Mnemonic(object):
         self.creatorid = _creatorID
         self.latitude = _latitude
         self.longitude = _longitude
+        self.priority = 0;
 
 

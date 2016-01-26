@@ -54,6 +54,18 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:onClick="leftClicked" />
+
+        <Button
+            android:layout_width="235dp"
+            android:layout_height="65dp"
+            android:text="Location"
+            android:id="@+id/locality"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/rightButton"
+            android:layout_toRightOf="@+id/leftButton"
+            android:layout_toEndOf="@+id/leftButton"
+            android:background="#fdfdfd"
+            android:textSize="12dp" />
     </RelativeLayout>
 
     <Button
