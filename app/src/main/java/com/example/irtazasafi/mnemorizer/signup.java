@@ -39,10 +39,11 @@ import java.security.NoSuchAlgorithmException;
 public class signup extends AppCompatActivity  {
 
     public String serverResponse = "";
-    public String serverURL = "http://192.168.10.7"; //"http://10.130.2.78";//
+    public String serverURL = "";//http://192.168.10.4";//"http://ec2-54-191-246-47.us-west-2.compute.amazonaws.com"; //"http://10.130.2.78";//
     public volatile boolean respRecieved = false;
     public Context context = this;
     public SharedPreferences preferences;
+    public SharedPreferences.Editor editor;
     DataManager globalData;
 
     LocationManager locationManager;
@@ -77,8 +78,10 @@ public class signup extends AppCompatActivity  {
 
 
         globalData = new DataManager(0,"");
+        serverURL = globalData.serverURL;
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor = preferences.edit();
     }
 
     @TargetApi(Build.VERSION_CODES.M)
@@ -144,6 +147,7 @@ public class signup extends AppCompatActivity  {
         @Override
         protected String doInBackground(String... params) {
 
+            System.out.println("****************REQUST SENT");
             return makeHTTPRequest(params[0],"GET");
         }
 
@@ -183,11 +187,11 @@ public class signup extends AppCompatActivity  {
 
                 String serializedData = serializer.toJson(globalData);
 
-                preferences.edit().putString("globalData", serializedData);
+                editor.putString("globalData", serializedData);
 
-                preferences.edit().putBoolean("loggedIn", true);
+                editor.putBoolean("loggedIn", true);
 
-                preferences.edit().apply();
+                editor.apply();
 
                 showToast("ACCOUNT SUCCESSFULLY CREATED");
 

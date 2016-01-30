@@ -133,9 +133,13 @@ public class meaning_mnemonic_page extends AppCompatActivity {
             String localAddress = "";
             try {
                 List<Address> addresses = gcd.getFromLocation(currentMnemonic.latitude, currentMnemonic.longitude, 1);
-                localAddress = addresses.get(0).getLocality();
-                String further = addresses.get(0).getSubLocality();
-                locality.setText(localAddress + "," + further);
+                if(addresses.size() != 0) {
+                    localAddress = addresses.get(0).getLocality();
+                    String further = addresses.get(0).getSubLocality();
+                    locality.setText(localAddress + "," + further);
+                } else{
+                    locality.setText("Location Not Available");
+                }
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -145,7 +149,7 @@ public class meaning_mnemonic_page extends AppCompatActivity {
             if(mnemonics.get(0).liked == true) {
                 thumbsUp.setBackgroundResource(R.drawable.thumbsupblue);
             }
-            rankDisplay.setText("1");
+            rankDisplay.setText("1"+ "/" + Integer.toString(mnemonics.size()));
         }
 
         // set initial view values
@@ -197,11 +201,14 @@ public class meaning_mnemonic_page extends AppCompatActivity {
     }
 
     public void rightClicked(View v) throws IOException {
-        if(mnemonics.size() == 0) {
+        if(mnemonics.size() <= 1) {
             return;
         }
         int index = Math.abs((mnemonicIndex+1)%mnemonics.size());
         mnemonicIndex = index;
+        System.out.println("*********************************************** index is" + " " + index);
+
+        System.out.println("*********************************************** size is" + " " + mnemonics.size());
         if(mnemonics.get(index).liked == true) {
             thumbsUp.setBackgroundResource(R.drawable.thumbsupblue);
         } else {
@@ -210,16 +217,20 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         mnemonicDisplay.setText(mnemonics.get(index).mnemonic);
         currentMnemonic = mnemonics.get(index);
         List<Address> addresses = gcd.getFromLocation(currentMnemonic.latitude,currentMnemonic.longitude, 1);
-        String localAddress = addresses.get(0).getLocality();
-        String further = addresses.get(0).getSubLocality();
-        locality.setText(localAddress + "," + further);
-        rankDisplay.setText(Integer.toString(index + 1));
+        if(addresses.size()!=0) {
+            String localAddress = addresses.get(0).getLocality();
+            String further = addresses.get(0).getSubLocality();
+            locality.setText(localAddress + "," + further);
+        } else {
+            locality.setText("Location not available");
+        }
+        rankDisplay.setText(Integer.toString(index + 1) + "/" + Integer.toString(mnemonics.size()));
         likeCounter.setText(Integer.toString(currentMnemonic.score));
 
     }
 
     public void leftClicked(View v) throws IOException {
-        if(mnemonics.size() == 0) {
+        if(mnemonics.size() <= 1) {
             return;
         }
 
@@ -234,17 +245,21 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         mnemonicDisplay.setText(mnemonics.get(index).mnemonic);
         currentMnemonic = mnemonics.get(index);
         List<Address> addresses = gcd.getFromLocation(currentMnemonic.latitude,currentMnemonic.longitude, 1);
-        String localAddress = addresses.get(0).getLocality();
-        String further = addresses.get(0).getSubLocality();
-        locality.setText(localAddress + "," + further);
-        rankDisplay.setText(Integer.toString(index + 1));
+        if(addresses.size()!=0) {
+            String localAddress = addresses.get(0).getLocality();
+            String further = addresses.get(0).getSubLocality();
+            locality.setText(localAddress + "," + further);
+        } else {
+            locality.setText("Location not available");
+        }
+        rankDisplay.setText(Integer.toString(index + 1) + "/" + Integer.toString(mnemonics.size()));
         likeCounter.setText(Integer.toString(currentMnemonic.score));
     }
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public void addCustomMnemonic(View v) {
 
-        editor.putInt("wordid",currWordID);
+        editor.putInt("wordid", currWordID);
         editor.putInt("creatorid",globalData.userID);
 
         editor.apply();

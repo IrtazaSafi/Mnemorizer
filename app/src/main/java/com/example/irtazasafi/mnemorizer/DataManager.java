@@ -17,7 +17,7 @@ public class DataManager {
         userID = _userID;
         email = _email;
         vocabularyWords = new ArrayList<VocabularyWord>();
-        serverURL = "http://10.130.2.78";
+        serverURL = "http://ec2-54-191-246-47.us-west-2.compute.amazonaws.com";//"http://192.168.10.4";//
     }
 
     public ArrayList<VocabularyWord> getWordsforDeck(int _deckID){

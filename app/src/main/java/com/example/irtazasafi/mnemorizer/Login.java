@@ -46,7 +46,7 @@ import java.util.List;
 
 public class Login extends AppCompatActivity {
     public String serverResponse = "";
-    public String serverURL = "http://10.130.2.78";//"http://192.168.10.6";//
+    public String serverURL = "";//"http://192.168.10.4";//"http://ec2-54-191-246-47.us-west-2.compute.amazonaws.com";//"http://192.168.10.6";//
     public volatile boolean respRecieved = false;
     public volatile boolean connectionError = false;
     ProgressBar spinner;
@@ -191,7 +191,7 @@ public class Login extends AppCompatActivity {
 
 
 
-        @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -203,11 +203,26 @@ public class Login extends AppCompatActivity {
        // setSupportActionBar(toolbar);
        //
         globalData = new DataManager(0,"");
+            serverURL = globalData.serverURL;
            // this.overridePendingTransition(R.anim.slide_left,R.anim.slide_right);
 
 
         }
 
+    protected void onStart() {
+
+        System.out.println("****************************************************** ON START CALLED IN LOGIN ");
+
+        super.onStart();
+    }
+
+    protected void onDestroy() {
+
+        System.out.println("***************** ***********************************ON DESTROY CALLED IN LOGIN ");
+
+
+        super.onDestroy();
+    }
 
 
     protected void onResume() {

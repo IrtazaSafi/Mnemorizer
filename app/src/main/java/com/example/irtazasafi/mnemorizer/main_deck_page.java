@@ -41,6 +41,28 @@ public class main_deck_page extends ListActivity {
 
     }
 
+    protected void onStart() {
+
+        System.out.println("****************************************************** ON START CALLED IN MAIN DECK PAGE ");
+
+        super.onStart();
+    }
+
+    protected void onDestroy() {
+
+        System.out.println("***************** ***********************************ON DESTROY CALLED IN MAIN DECK PAGE ");
+
+
+        super.onDestroy();
+    }
+
+    protected void onPause() {
+        System.out.println("***************** ***********************************ON PAUSE CALLED IN MAIN DECK PAGE ");
+        super.onPause();
+
+
+    }
+
     @Override
     public void onBackPressed() {
 

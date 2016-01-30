@@ -33,7 +33,8 @@ class ObjectBuilder:
             mnemonics = self.dbConnection.fetchMnemonicsForWord(word.id)
             for row in mnemonics:
                 mnemonic = Mnemonic(row[0],row[1],row[2],row[3],float(row[4]),float(row[5]),row[6])
-                mnemonic.priority = self.distance(latitude,longitude,mnemonic.latitude,mnemonic.longitude)
+                mnemonic.priority = mnemonic.score
+                    #self.distance(latitude,longitude,mnemonic.latitude,mnemonic.longitude)
                 word.mnemonics.append(mnemonic)
 
 
@@ -42,7 +43,7 @@ class ObjectBuilder:
             # finaloutput = finaloutput + jsonWord
 
         for word in wordList:
-            word.mnemonics.sort(key=lambda x:x.priority,reverse =False)
+            word.mnemonics.sort(key=lambda x:x.priority,reverse =True)
 
 
         return wordList

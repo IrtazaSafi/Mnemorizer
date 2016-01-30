@@ -10,7 +10,7 @@ import jsonpickle
 from ObjectBuilder import ObjectBuilder
 import urllib
 
-HOST_NAME = '10.130.2.78'
+HOST_NAME = '192.168.10.4'
 PORT = 80
 
 dbConnection = databaseConnectionManager()
@@ -45,7 +45,7 @@ class Handler(BaseHTTPRequestHandler):
             latitude = float(pathArray[3])
             longitude = float(pathArray[4])
             dbConnection.updateUserLocation(int(pathArray[2]),latitude,longitude)
-            data = jsonpickle.encode(list(objectBuilder.generateWordObjects()))
+            data = jsonpickle.encode(list(objectBuilder.generateWordObjects(latitude,longitude)))
             self.wfile.write("Validated-" + str(pathArray[2])+"-"+data)
             print "Validated"
 
@@ -67,7 +67,7 @@ class Handler(BaseHTTPRequestHandler):
             elif code is 0:
                 self.wfile.write("error-dbError")
             else:
-                data = jsonpickle.encode(list(objectBuilder.generateWordObjects()))
+                data = jsonpickle.encode(list(objectBuilder.generateWordObjects(latitude,longitude)))
                 self.wfile.write("success-"+ str(code)+"-"+data)
 
         if pathArray[1] == "test":
@@ -76,7 +76,7 @@ class Handler(BaseHTTPRequestHandler):
             # helper = Mnemonic(10, "cool cool afridi", "apple", 20, 1, 3.12112, 33.1414)
             # word.mnemonics.append(helper)
             # # data = json.dumps(word._returnAsSerializable().__dict__)
-            data = jsonpickle.encode(list(objectBuilder.generateWordObjects()))#objectBuilder.generateWordObjects() #
+            data = jsonpickle.encode(list(objectBuilder.generateWordObjects(31.4712731,74.2531819)))#objectBuilder.generateWordObjects() #
             print data
             self.wfile.write("json-" + data)
 
