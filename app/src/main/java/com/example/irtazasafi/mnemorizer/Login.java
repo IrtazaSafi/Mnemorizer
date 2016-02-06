@@ -113,6 +113,15 @@ public class Login extends AppCompatActivity {
                     globalData.vocabularyWords.add(words[i]);
                 }
 
+                System.out.println("*********************************Mnemonics Recieved ");
+
+                for(VocabularyWord word : globalData.vocabularyWords) {
+                    System.out.println("***********************************  " + word.word);
+                    for(Mnemonic mnemonic : word.mnemonics) {
+                        System.out.println("***********************************  " + mnemonic.mnemonic);
+                    }
+                }
+
                 String serializedData = serializer.toJson(globalData);
 
                 editor.putString("globalData", serializedData);
@@ -132,8 +141,17 @@ public class Login extends AppCompatActivity {
                     globalData.vocabularyWords.add(words[i]);
                 }
 
+                System.out.println("*********************************Mnemonics Recieved ");
+
+                for(VocabularyWord word : globalData.vocabularyWords) {
+                    System.out.println("***********************************  " + word.word);
+                    for(Mnemonic mnemonic : word.mnemonics) {
+                        System.out.println("***********************************  " + mnemonic.mnemonic);
+                    }
+                }
+
                 String serializedData = serializer.toJson(globalData);
-               editor.putString("globalData", serializedData);
+                editor.putString("globalData", serializedData);
                 editor.apply();
             }
 

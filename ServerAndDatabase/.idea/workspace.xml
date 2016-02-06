@@ -14,8 +14,8 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/ServerAndDatabase$Server.coverage" NAME="Server Coverage Results" MODIFIED="1454166174737" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ServerAndDatabase$databaseConnectionManager.coverage" NAME="databaseConnectionManager Coverage Results" MODIFIED="1453100778598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ServerAndDatabase$Server.coverage" NAME="Server Coverage Results" MODIFIED="1454789829671" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ServerAndDatabase$databaseConnectionManager.coverage" NAME="databaseConnectionManager Coverage Results" MODIFIED="1454785156987" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -32,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Server.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Server.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6926829">
-              <caret line="57" column="35" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
               <folding>
                 <element signature="e#27#88#0" expanded="true" />
               </folding>
@@ -64,26 +64,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="databaseConnectionManager.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="databaseConnectionManager.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/databaseConnectionManager.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.2437276">
+              <caret line="9" column="28" selection-start-line="0" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <marker date="1454165146767" expanded="true" signature="483:518" placeholder="SELECT id,em..users..." />
-                <marker date="1454165146767" expanded="true" signature="736:787" placeholder="SELECT id FR..users..." />
-                <marker date="1454165146767" expanded="true" signature="989:1023" placeholder="SELECT id FR..users..." />
-                <marker date="1454165146767" expanded="true" signature="1308:1333" placeholder="SELECT MAX(i..users..." />
-                <marker date="1454165146767" expanded="true" signature="1451:1531" placeholder="INSERT INTO ..." />
-                <marker date="1454165146767" expanded="true" signature="1779:1802" placeholder="SELECT email..users..." />
-                <marker date="1454165146767" expanded="true" signature="1915:2024" placeholder="SELECT words..words..." />
-                <marker date="1454165146767" expanded="true" signature="2143:2330" placeholder="SELECT DISTI..words..." />
-                <marker date="1454165146767" expanded="true" signature="2493:2522" placeholder="SELECT MAX(i..mnemonics..." />
-                <marker date="1454165146767" expanded="true" signature="2643:2749" placeholder="INSERT INTO ..." />
-                <marker date="1454165146767" expanded="true" signature="3010:3056" placeholder="UPDATE mnemo..." />
-                <marker date="1454165146767" expanded="true" signature="3237:3283" placeholder="UPDATE mnemo..." />
-                <marker date="1454165146767" expanded="true" signature="3488:3540" placeholder="UPDATE users..." />
+                <marker date="1454789829659" expanded="true" signature="720:755" placeholder="SELECT id,em..users..." />
+                <marker date="1454789829659" expanded="true" signature="1000:1051" placeholder="SELECT id FR..users..." />
+                <marker date="1454789829659" expanded="true" signature="1289:1323" placeholder="SELECT id FR..users..." />
+                <marker date="1454789829659" expanded="true" signature="1714:1739" placeholder="SELECT MAX(i..users..." />
+                <marker date="1454789829659" expanded="true" signature="1896:1976" placeholder="INSERT INTO ..." />
+                <marker date="1454789829659" expanded="true" signature="2295:2318" placeholder="SELECT email..users..." />
+                <marker date="1454789829659" expanded="true" signature="2462:2571" placeholder="SELECT words..words..." />
+                <marker date="1454789829659" expanded="true" signature="2725:2757" placeholder="SELECT SQL_N..words..." />
+                <marker date="1454789829659" expanded="true" signature="2725:2767" placeholder="SELECT SQL_N..words..." />
+                <marker date="1454789829659" expanded="true" signature="2725:2769" placeholder="SELECT SQL_N..TABLE..." />
+                <marker date="1454789829659" expanded="true" signature="2819:3020" placeholder="SELECT DISTI..words..." />
+                <marker date="1454789829659" expanded="true" signature="3249:3278" placeholder="SELECT MAX(i..mnemonics..." />
+                <marker date="1454789829659" expanded="true" signature="3456:3562" placeholder="INSERT INTO ..." />
+                <marker date="1454789829659" expanded="true" signature="3909:3955" placeholder="UPDATE mnemo..." />
+                <marker date="1454789829659" expanded="true" signature="4176:4222" placeholder="UPDATE mnemo..." />
+                <marker date="1454789829659" expanded="true" signature="4467:4519" placeholder="UPDATE users..." />
+                <marker date="1454789829659" expanded="true" signature="4632:4670" placeholder="SELECT mnemo..mnemonics..." />
+                <marker date="1454789829659" expanded="true" signature="4632:4673" placeholder="SELECT mnemo..mnemonics..." />
+                <marker date="1454789829659" expanded="true" signature="4632:4678" placeholder="SELECT mnemo..mnemonics..." />
               </folding>
             </state>
           </provider>
@@ -93,7 +99,7 @@
         <entry file="file://$PROJECT_DIR$/ObjectBuilder.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="45" column="69" selection-start-line="45" selection-start-column="69" selection-end-line="45" selection-end-column="69" />
+              <caret line="50" column="27" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
               <folding>
                 <element signature="e#27#90#0" expanded="true" />
               </folding>
@@ -107,9 +113,9 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Mnemonic.py" />
-        <option value="$PROJECT_DIR$/databaseConnectionManager.py" />
-        <option value="$PROJECT_DIR$/Server.py" />
         <option value="$PROJECT_DIR$/ObjectBuilder.py" />
+        <option value="$PROJECT_DIR$/Server.py" />
+        <option value="$PROJECT_DIR$/databaseConnectionManager.py" />
       </list>
     </option>
   </component>
@@ -428,17 +434,17 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25755286" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26510575" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29903537" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5096463" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -471,6 +477,136 @@
     <entry file="file://$PROJECT_DIR$/Server.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
+          <folding>
+            <element signature="e#27#88#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VocabularyWord.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Mnemonic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/databaseConnectionManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <marker date="1454789829659" expanded="true" signature="720:755" placeholder="SELECT id,em..users..." />
+            <marker date="1454789829659" expanded="true" signature="1000:1051" placeholder="SELECT id FR..users..." />
+            <marker date="1454789829659" expanded="true" signature="1289:1323" placeholder="SELECT id FR..users..." />
+            <marker date="1454789829659" expanded="true" signature="1714:1739" placeholder="SELECT MAX(i..users..." />
+            <marker date="1454789829659" expanded="true" signature="1896:1976" placeholder="INSERT INTO ..." />
+            <marker date="1454789829659" expanded="true" signature="2295:2318" placeholder="SELECT email..users..." />
+            <marker date="1454789829659" expanded="true" signature="2462:2571" placeholder="SELECT words..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2757" placeholder="SELECT SQL_N..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2767" placeholder="SELECT SQL_N..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2769" placeholder="SELECT SQL_N..TABLE..." />
+            <marker date="1454789829659" expanded="true" signature="2819:3020" placeholder="SELECT DISTI..words..." />
+            <marker date="1454789829659" expanded="true" signature="3249:3278" placeholder="SELECT MAX(i..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="3456:3562" placeholder="INSERT INTO ..." />
+            <marker date="1454789829659" expanded="true" signature="3909:3955" placeholder="UPDATE mnemo..." />
+            <marker date="1454789829659" expanded="true" signature="4176:4222" placeholder="UPDATE mnemo..." />
+            <marker date="1454789829659" expanded="true" signature="4467:4519" placeholder="UPDATE users..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4670" placeholder="SELECT mnemo..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4673" placeholder="SELECT mnemo..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4678" placeholder="SELECT mnemo..mnemonics..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ObjectBuilder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="50" column="27" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
+          <folding>
+            <element signature="e#27#90#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="57" column="35" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
+          <folding>
+            <element signature="e#27#88#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VocabularyWord.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Mnemonic.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/databaseConnectionManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <marker date="1454789829659" expanded="true" signature="720:755" placeholder="SELECT id,em..users..." />
+            <marker date="1454789829659" expanded="true" signature="1000:1051" placeholder="SELECT id FR..users..." />
+            <marker date="1454789829659" expanded="true" signature="1289:1323" placeholder="SELECT id FR..users..." />
+            <marker date="1454789829659" expanded="true" signature="1714:1739" placeholder="SELECT MAX(i..users..." />
+            <marker date="1454789829659" expanded="true" signature="1896:1976" placeholder="INSERT INTO ..." />
+            <marker date="1454789829659" expanded="true" signature="2295:2318" placeholder="SELECT email..users..." />
+            <marker date="1454789829659" expanded="true" signature="2462:2571" placeholder="SELECT words..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2757" placeholder="SELECT SQL_N..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2767" placeholder="SELECT SQL_N..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2769" placeholder="SELECT SQL_N..TABLE..." />
+            <marker date="1454789829659" expanded="true" signature="2819:3020" placeholder="SELECT DISTI..words..." />
+            <marker date="1454789829659" expanded="true" signature="3249:3278" placeholder="SELECT MAX(i..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="3456:3562" placeholder="INSERT INTO ..." />
+            <marker date="1454789829659" expanded="true" signature="3909:3955" placeholder="UPDATE mnemo..." />
+            <marker date="1454789829659" expanded="true" signature="4176:4222" placeholder="UPDATE mnemo..." />
+            <marker date="1454789829659" expanded="true" signature="4467:4519" placeholder="UPDATE users..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4670" placeholder="SELECT mnemo..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4673" placeholder="SELECT mnemo..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4678" placeholder="SELECT mnemo..mnemonics..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ObjectBuilder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="45" column="69" selection-start-line="45" selection-start-column="69" selection-end-line="45" selection-end-column="69" />
+          <folding>
+            <element signature="e#27#90#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#27#88#0" expanded="true" />
@@ -492,19 +628,25 @@
           <caret line="120" column="116" selection-start-line="120" selection-start-column="116" selection-end-line="120" selection-end-column="116" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <marker date="1454165146767" expanded="true" signature="483:518" placeholder="SELECT id,em..users..." />
-            <marker date="1454165146767" expanded="true" signature="736:787" placeholder="SELECT id FR..users..." />
-            <marker date="1454165146767" expanded="true" signature="989:1023" placeholder="SELECT id FR..users..." />
-            <marker date="1454165146767" expanded="true" signature="1308:1333" placeholder="SELECT MAX(i..users..." />
-            <marker date="1454165146767" expanded="true" signature="1451:1531" placeholder="INSERT INTO ..." />
-            <marker date="1454165146767" expanded="true" signature="1779:1802" placeholder="SELECT email..users..." />
-            <marker date="1454165146767" expanded="true" signature="1915:2024" placeholder="SELECT words..words..." />
-            <marker date="1454165146767" expanded="true" signature="2143:2330" placeholder="SELECT DISTI..words..." />
-            <marker date="1454165146767" expanded="true" signature="2493:2522" placeholder="SELECT MAX(i..mnemonics..." />
-            <marker date="1454165146767" expanded="true" signature="2643:2749" placeholder="INSERT INTO ..." />
-            <marker date="1454165146767" expanded="true" signature="3010:3056" placeholder="UPDATE mnemo..." />
-            <marker date="1454165146767" expanded="true" signature="3237:3283" placeholder="UPDATE mnemo..." />
-            <marker date="1454165146767" expanded="true" signature="3488:3540" placeholder="UPDATE users..." />
+            <marker date="1454789829659" expanded="true" signature="720:755" placeholder="SELECT id,em..users..." />
+            <marker date="1454789829659" expanded="true" signature="1000:1051" placeholder="SELECT id FR..users..." />
+            <marker date="1454789829659" expanded="true" signature="1289:1323" placeholder="SELECT id FR..users..." />
+            <marker date="1454789829659" expanded="true" signature="1714:1739" placeholder="SELECT MAX(i..users..." />
+            <marker date="1454789829659" expanded="true" signature="1896:1976" placeholder="INSERT INTO ..." />
+            <marker date="1454789829659" expanded="true" signature="2295:2318" placeholder="SELECT email..users..." />
+            <marker date="1454789829659" expanded="true" signature="2462:2571" placeholder="SELECT words..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2757" placeholder="SELECT SQL_N..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2767" placeholder="SELECT SQL_N..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2769" placeholder="SELECT SQL_N..TABLE..." />
+            <marker date="1454789829659" expanded="true" signature="2819:3020" placeholder="SELECT DISTI..words..." />
+            <marker date="1454789829659" expanded="true" signature="3249:3278" placeholder="SELECT MAX(i..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="3456:3562" placeholder="INSERT INTO ..." />
+            <marker date="1454789829659" expanded="true" signature="3909:3955" placeholder="UPDATE mnemo..." />
+            <marker date="1454789829659" expanded="true" signature="4176:4222" placeholder="UPDATE mnemo..." />
+            <marker date="1454789829659" expanded="true" signature="4467:4519" placeholder="UPDATE users..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4670" placeholder="SELECT mnemo..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4673" placeholder="SELECT mnemo..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4678" placeholder="SELECT mnemo..mnemonics..." />
           </folding>
         </state>
       </provider>
@@ -543,19 +685,25 @@
           <caret line="110" column="86" selection-start-line="110" selection-start-column="86" selection-end-line="110" selection-end-column="86" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <marker date="1454165146767" expanded="true" signature="483:518" placeholder="SELECT id,em..users..." />
-            <marker date="1454165146767" expanded="true" signature="736:787" placeholder="SELECT id FR..users..." />
-            <marker date="1454165146767" expanded="true" signature="989:1023" placeholder="SELECT id FR..users..." />
-            <marker date="1454165146767" expanded="true" signature="1308:1333" placeholder="SELECT MAX(i..users..." />
-            <marker date="1454165146767" expanded="true" signature="1451:1531" placeholder="INSERT INTO ..." />
-            <marker date="1454165146767" expanded="true" signature="1779:1802" placeholder="SELECT email..users..." />
-            <marker date="1454165146767" expanded="true" signature="1915:2024" placeholder="SELECT words..words..." />
-            <marker date="1454165146767" expanded="true" signature="2143:2330" placeholder="SELECT DISTI..words..." />
-            <marker date="1454165146767" expanded="true" signature="2493:2522" placeholder="SELECT MAX(i..mnemonics..." />
-            <marker date="1454165146767" expanded="true" signature="2643:2749" placeholder="INSERT INTO ..." />
-            <marker date="1454165146767" expanded="true" signature="3010:3056" placeholder="UPDATE mnemo..." />
-            <marker date="1454165146767" expanded="true" signature="3237:3283" placeholder="UPDATE mnemo..." />
-            <marker date="1454165146767" expanded="true" signature="3488:3540" placeholder="UPDATE users..." />
+            <marker date="1454789829659" expanded="true" signature="720:755" placeholder="SELECT id,em..users..." />
+            <marker date="1454789829659" expanded="true" signature="1000:1051" placeholder="SELECT id FR..users..." />
+            <marker date="1454789829659" expanded="true" signature="1289:1323" placeholder="SELECT id FR..users..." />
+            <marker date="1454789829659" expanded="true" signature="1714:1739" placeholder="SELECT MAX(i..users..." />
+            <marker date="1454789829659" expanded="true" signature="1896:1976" placeholder="INSERT INTO ..." />
+            <marker date="1454789829659" expanded="true" signature="2295:2318" placeholder="SELECT email..users..." />
+            <marker date="1454789829659" expanded="true" signature="2462:2571" placeholder="SELECT words..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2757" placeholder="SELECT SQL_N..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2767" placeholder="SELECT SQL_N..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2769" placeholder="SELECT SQL_N..TABLE..." />
+            <marker date="1454789829659" expanded="true" signature="2819:3020" placeholder="SELECT DISTI..words..." />
+            <marker date="1454789829659" expanded="true" signature="3249:3278" placeholder="SELECT MAX(i..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="3456:3562" placeholder="INSERT INTO ..." />
+            <marker date="1454789829659" expanded="true" signature="3909:3955" placeholder="UPDATE mnemo..." />
+            <marker date="1454789829659" expanded="true" signature="4176:4222" placeholder="UPDATE mnemo..." />
+            <marker date="1454789829659" expanded="true" signature="4467:4519" placeholder="UPDATE users..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4670" placeholder="SELECT mnemo..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4673" placeholder="SELECT mnemo..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4678" placeholder="SELECT mnemo..mnemonics..." />
           </folding>
         </state>
       </provider>
@@ -579,42 +727,48 @@
     <entry file="file://$PROJECT_DIR$/ObjectBuilder.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="45" column="69" selection-start-line="45" selection-start-column="69" selection-end-line="45" selection-end-column="69" />
+          <caret line="50" column="27" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
           <folding>
             <element signature="e#27#90#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/databaseConnectionManager.py">
+    <entry file="file://$PROJECT_DIR$/Server.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+          <caret line="50" column="12" selection-start-line="50" selection-start-column="12" selection-end-line="50" selection-end-column="12" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <marker date="1454165146767" expanded="true" signature="483:518" placeholder="SELECT id,em..users..." />
-            <marker date="1454165146767" expanded="true" signature="736:787" placeholder="SELECT id FR..users..." />
-            <marker date="1454165146767" expanded="true" signature="989:1023" placeholder="SELECT id FR..users..." />
-            <marker date="1454165146767" expanded="true" signature="1308:1333" placeholder="SELECT MAX(i..users..." />
-            <marker date="1454165146767" expanded="true" signature="1451:1531" placeholder="INSERT INTO ..." />
-            <marker date="1454165146767" expanded="true" signature="1779:1802" placeholder="SELECT email..users..." />
-            <marker date="1454165146767" expanded="true" signature="1915:2024" placeholder="SELECT words..words..." />
-            <marker date="1454165146767" expanded="true" signature="2143:2330" placeholder="SELECT DISTI..words..." />
-            <marker date="1454165146767" expanded="true" signature="2493:2522" placeholder="SELECT MAX(i..mnemonics..." />
-            <marker date="1454165146767" expanded="true" signature="2643:2749" placeholder="INSERT INTO ..." />
-            <marker date="1454165146767" expanded="true" signature="3010:3056" placeholder="UPDATE mnemo..." />
-            <marker date="1454165146767" expanded="true" signature="3237:3283" placeholder="UPDATE mnemo..." />
-            <marker date="1454165146767" expanded="true" signature="3488:3540" placeholder="UPDATE users..." />
+            <element signature="e#27#88#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Server.py">
+    <entry file="file://$PROJECT_DIR$/databaseConnectionManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6926829">
-          <caret line="57" column="35" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.2437276">
+          <caret line="9" column="28" selection-start-line="0" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
           <folding>
-            <element signature="e#27#88#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
+            <marker date="1454789829659" expanded="true" signature="720:755" placeholder="SELECT id,em..users..." />
+            <marker date="1454789829659" expanded="true" signature="1000:1051" placeholder="SELECT id FR..users..." />
+            <marker date="1454789829659" expanded="true" signature="1289:1323" placeholder="SELECT id FR..users..." />
+            <marker date="1454789829659" expanded="true" signature="1714:1739" placeholder="SELECT MAX(i..users..." />
+            <marker date="1454789829659" expanded="true" signature="1896:1976" placeholder="INSERT INTO ..." />
+            <marker date="1454789829659" expanded="true" signature="2295:2318" placeholder="SELECT email..users..." />
+            <marker date="1454789829659" expanded="true" signature="2462:2571" placeholder="SELECT words..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2757" placeholder="SELECT SQL_N..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2767" placeholder="SELECT SQL_N..words..." />
+            <marker date="1454789829659" expanded="true" signature="2725:2769" placeholder="SELECT SQL_N..TABLE..." />
+            <marker date="1454789829659" expanded="true" signature="2819:3020" placeholder="SELECT DISTI..words..." />
+            <marker date="1454789829659" expanded="true" signature="3249:3278" placeholder="SELECT MAX(i..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="3456:3562" placeholder="INSERT INTO ..." />
+            <marker date="1454789829659" expanded="true" signature="3909:3955" placeholder="UPDATE mnemo..." />
+            <marker date="1454789829659" expanded="true" signature="4176:4222" placeholder="UPDATE mnemo..." />
+            <marker date="1454789829659" expanded="true" signature="4467:4519" placeholder="UPDATE users..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4670" placeholder="SELECT mnemo..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4673" placeholder="SELECT mnemo..mnemonics..." />
+            <marker date="1454789829659" expanded="true" signature="4632:4678" placeholder="SELECT mnemo..mnemonics..." />
           </folding>
         </state>
       </provider>

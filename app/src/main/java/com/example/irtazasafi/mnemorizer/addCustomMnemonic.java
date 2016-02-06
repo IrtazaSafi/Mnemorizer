@@ -87,7 +87,7 @@ public class addCustomMnemonic extends AppCompatActivity {
 
         String encoded = URLEncoder.encode(requestone,"UTF-8");
 
-        String finalRequest = serverURL + "/"+encoded;
+        String finalRequest = globalData.serverURL + "/"+encoded;
 
 
 

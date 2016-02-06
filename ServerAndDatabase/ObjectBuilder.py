@@ -45,6 +45,14 @@ class ObjectBuilder:
         for word in wordList:
             word.mnemonics.sort(key=lambda x:x.priority,reverse =True)
 
+        print "MNEMONCIS SENT"
+
+        for word in wordList:
+            print(word.word)
+            for mnemonic in word.mnemonics:
+                print(mnemonic.mnemonic)
+
+
 
         return wordList
 
