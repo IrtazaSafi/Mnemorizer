@@ -38,4 +38,5 @@ public class VocabularyWord {
         return mnemonics;
     }
 
+
 }

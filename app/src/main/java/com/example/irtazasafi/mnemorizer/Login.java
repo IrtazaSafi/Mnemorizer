@@ -42,6 +42,7 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Login extends AppCompatActivity {
@@ -108,6 +109,9 @@ public class Login extends AppCompatActivity {
                 Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
                 Gson serializer = new Gson();
                 VocabularyWord [] words = gson.fromJson(resp[2], VocabularyWord[].class);
+//                for(VocabularyWord word:words) {
+//                    Collections.sort(word.mnemonics);
+//                }
                 globalData.userID = userID;
                 for(int i = 0 ; i < words.length;i++) {
                     globalData.vocabularyWords.add(words[i]);
@@ -135,10 +139,16 @@ public class Login extends AppCompatActivity {
                 //
                 VocabularyWord [] words = gson.fromJson(resp[2],VocabularyWord[].class);
 
-                globalData.vocabularyWords.clear();
+                //globalData.vocabularyWords.clear();
 
-                for(int i = 0 ; i < words.length;i++) {
-                    globalData.vocabularyWords.add(words[i]);
+                for(VocabularyWord word:words) {
+                    word.mnemonics.clear();
+                    for(Mnemonic mnemonic : word.mnemonics) {
+                        globalData.putMnemonicforWord(mnemonic.wordid,mnemonic);
+                    }
+                }
+                for(VocabularyWord word:globalData.vocabularyWords) {
+                    Collections.sort(word.mnemonics);
                 }
 
                 System.out.println("*********************************Mnemonics Recieved ");
@@ -149,6 +159,8 @@ public class Login extends AppCompatActivity {
                         System.out.println("***********************************  " + mnemonic.mnemonic);
                     }
                 }
+
+
 
                 String serializedData = serializer.toJson(globalData);
                 editor.putString("globalData", serializedData);

@@ -2,10 +2,12 @@ package com.example.irtazasafi.mnemorizer;
 
 import com.google.gson.annotations.Expose;
 
+import java.util.Objects;
+
 /**
  * Created by Irtaza Safi on 1/12/2016.
  */
-public class Mnemonic {
+public class Mnemonic implements Comparable<Mnemonic> {
 
 
     @Expose public int id;
@@ -27,5 +29,16 @@ public class Mnemonic {
         latitude = _latitude;
         longitude = _longitude;
         liked = false;
+    }
+
+    @Override
+    public int compareTo(Mnemonic another) {
+        if(this.score == another.score ) {
+            return 0;
+        } else if(this.score > another.score) {
+            return -1;
+        } else {
+            return 1;
+        }
     }
 }
