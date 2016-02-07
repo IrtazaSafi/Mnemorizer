@@ -17,6 +17,8 @@
         android:background="@drawable/brainpower_converted"
         android:textAlignment="center">
 
+
+
         <Button
             android:layout_marginTop="300dp"
             android:layout_width="match_parent"
@@ -27,26 +29,48 @@
     </LinearLayout>
 
 
-    <EditText
-        android:layout_marginTop="0dp"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="119dp"
-        android:id="@+id/mnemonicInput"
-        android:layout_gravity="center_horizontal"
-        android:background="#fdfdfd"
-        android:inputType="text"
-        android:text=""/>
+        android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_marginTop="0dp"
-        android:layout_height="80dp"
-        android:text="Submit Mnemonic"
-        android:id="@+id/submitMnemonic"
-        android:layout_gravity="center_horizontal"
-        android:background="#3de213"
-        android:textColor="#fefefe"
-        android:onClick="submitMnemonic"/>
+        <EditText
+            android:layout_marginTop="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="119dp"
+            android:id="@+id/mnemonicInput"
+            android:layout_gravity="center_horizontal"
+            android:background="#fdfdfd"
+            android:inputType="text"
+            android:text=""/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:text="Submit Mnemonic"
+            android:id="@+id/submitMnemonic"
+            android:layout_gravity="center_horizontal"
+            android:background="#3de213"
+            android:textColor="#fefefe"
+            android:onClick="submitMnemonic"
+            android:layout_below="@+id/mnemonicInput"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <ProgressBar
+            android:id="@+id/spinner"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"
+            android:visibility="invisible"
+            android:layout_above="@+id/submitMnemonic"
+            android:layout_centerHorizontal="true" />
+
+
+
+
+    </RelativeLayout>
+
+
 
 
 </LinearLayout>

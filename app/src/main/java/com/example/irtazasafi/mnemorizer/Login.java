@@ -46,15 +46,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class Login extends AppCompatActivity {
-    public String serverResponse = "";
-    public String serverURL = "";//"http://192.168.10.4";//"http://ec2-54-191-246-47.us-west-2.compute.amazonaws.com";//"http://192.168.10.6";//
-    public volatile boolean respRecieved = false;
-    public volatile boolean connectionError = false;
-    ProgressBar spinner;
+
+
     public Context context = this;
     public SharedPreferences preferences;
     public SharedPreferences.Editor editor;
+
     DataManager globalData;
+    ProgressBar spinner;
 
     private class AsyncTaskRunner extends AsyncTask<String, String, String> {
 
@@ -117,14 +116,14 @@ public class Login extends AppCompatActivity {
                     globalData.vocabularyWords.add(words[i]);
                 }
 
-                System.out.println("*********************************Mnemonics Recieved ");
-
-                for(VocabularyWord word : globalData.vocabularyWords) {
-                    System.out.println("***********************************  " + word.word);
-                    for(Mnemonic mnemonic : word.mnemonics) {
-                        System.out.println("***********************************  " + mnemonic.mnemonic);
-                    }
-                }
+//                System.out.println("*********************************Mnemonics Recieved ");
+//
+//                for(VocabularyWord word : globalData.vocabularyWords) {
+//                    System.out.println("***********************************  " + word.word);
+//                    for(Mnemonic mnemonic : word.mnemonics) {
+//                        System.out.println("***********************************  " + mnemonic.mnemonic);
+//                    }
+//                }
 
                 String serializedData = serializer.toJson(globalData);
 
@@ -151,14 +150,14 @@ public class Login extends AppCompatActivity {
                     Collections.sort(word.mnemonics);
                 }
 
-                System.out.println("*********************************Mnemonics Recieved ");
-
-                for(VocabularyWord word : globalData.vocabularyWords) {
-                    System.out.println("***********************************  " + word.word);
-                    for(Mnemonic mnemonic : word.mnemonics) {
-                        System.out.println("***********************************  " + mnemonic.mnemonic);
-                    }
-                }
+//                System.out.println("*********************************Mnemonics Recieved ");
+//
+//                for(VocabularyWord word : globalData.vocabularyWords) {
+//                    System.out.println("***********************************  " + word.word);
+//                    for(Mnemonic mnemonic : word.mnemonics) {
+//                        System.out.println("***********************************  " + mnemonic.mnemonic);
+//                    }
+//                }
 
 
 
@@ -180,13 +179,13 @@ public class Login extends AppCompatActivity {
 
 
             if(resp[0].equals("json")){
-                System.out.println("JSON RECIEVED");
+               // System.out.println("JSON RECIEVED");
                 Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 
 
                 String valSon = resp[1];
                 VocabularyWord words [] = gson.fromJson(resp[1], VocabularyWord[].class);
-                System.out.println("JSON is  " + valSon);
+               // System.out.println("JSON is  " + valSon);
 
                 DataManager globalData = new DataManager(1,"admin@admin.com");
                 for (int i = 0 ; i < words.length;i++) {
@@ -197,20 +196,20 @@ public class Login extends AppCompatActivity {
 
                 String serializedData = serializer.toJson(globalData);
 
-                System.out.println("SERIALIZED DATA IS :  " + serializedData);
+               // System.out.println("SERIALIZED DATA IS :  " + serializedData);
 
                 SharedPreferences.Editor editor = preferences.edit();
                 editor.putString("globalData", serializedData);
                 editor.apply();
                 showToast("DATA RECIEVED AND SAVED");
 
-                String returnedData = preferences.getString("globalData","");
-
-                System.out.println("RETURNED DATA IS  " + returnedData);
-
-                DataManager returned = serializer.fromJson(returnedData,DataManager.class);
-
-                System.out.println(returned.email);
+//                String returnedData = preferences.getString("globalData","");
+//
+//                System.out.println("RETURNED DATA IS  " + returnedData);
+//
+//                DataManager returned = serializer.fromJson(returnedData,DataManager.class);
+//
+//                System.out.println(returned.email);
                 Intent main_deck_page = new Intent(context,main_deck_page.class);
                 startActivity(main_deck_page);
 
@@ -233,7 +232,6 @@ public class Login extends AppCompatActivity {
        // setSupportActionBar(toolbar);
        //
         globalData = new DataManager(0,"");
-            serverURL = globalData.serverURL;
            // this.overridePendingTransition(R.anim.slide_left,R.anim.slide_right);
 
 
@@ -241,14 +239,14 @@ public class Login extends AppCompatActivity {
 
     protected void onStart() {
 
-        System.out.println("****************************************************** ON START CALLED IN LOGIN ");
+      //  System.out.println("****************************************************** ON START CALLED IN LOGIN ");
 
         super.onStart();
     }
 
     protected void onDestroy() {
 
-        System.out.println("***************** ***********************************ON DESTROY CALLED IN LOGIN ");
+     //   System.out.println("***************** ***********************************ON DESTROY CALLED IN LOGIN ");
 
 
         super.onDestroy();
@@ -257,8 +255,8 @@ public class Login extends AppCompatActivity {
 
     protected void onResume() {
 
-        System.out.println("*******************************in ON RESUME boolean value is " + preferences.getBoolean("loggedIn",false));
-        System.out.println("*************************************" + preferences.getString("globalData","empty"));
+      //  System.out.println("*******************************in ON RESUME boolean value is " + preferences.getBoolean("loggedIn",false));
+      //  System.out.println("*************************************" + preferences.getString("globalData","empty"));
 
         if(preferences.getBoolean("loggedIn",false)) {
 
@@ -273,9 +271,9 @@ public class Login extends AppCompatActivity {
             Gson serializer = new Gson();
             DataManager globalData = serializer.fromJson(preferences.getString("globalData", "empty"), DataManager.class);
 
-            System.out.println("**********************curruser ID IS" + globalData.userID);
+            //System.out.println("**********************curruser ID IS" + globalData.userID);
 
-            String loginRequest = serverURL+"/"+"-loginRequestVerif" + "-"+Integer.toString(globalData.userID)+"-"+String.valueOf(latitude)+
+            String loginRequest = globalData.serverURL+"/"+"-loginRequestVerif" + "-"+Integer.toString(globalData.userID)+"-"+String.valueOf(latitude)+
                     "-"+String.valueOf(longitude);
             AsyncTaskRunner runner = new AsyncTaskRunner();
             runner.execute(loginRequest);
@@ -297,64 +295,64 @@ public class Login extends AppCompatActivity {
         return hashtext;
     }
 
-    public void makeSynchronusRequest(final String url, final String method) {
-        Thread requester = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    HttpURLConnection koka = (HttpURLConnection) new URL(url).openConnection();
-                    koka.setRequestMethod(method);
-                    InputStream response = koka.getInputStream();
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(response));
-                    koka.setConnectTimeout(1000);
-                    koka.setReadTimeout(1000);
-                    for (String line; (line = reader.readLine()) != null; ) {
-                        serverResponse = serverResponse + line;
-                    }
-                    System.out.println(serverResponse);
-                    respRecieved = true;
-                } catch (SocketTimeoutException e) {
+//    public void makeSynchronusRequest(final String url, final String method) {
+//        Thread requester = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    HttpURLConnection koka = (HttpURLConnection) new URL(url).openConnection();
+//                    koka.setRequestMethod(method);
+//                    InputStream response = koka.getInputStream();
+//                    BufferedReader reader = new BufferedReader(new InputStreamReader(response));
+//                    koka.setConnectTimeout(1000);
+//                    koka.setReadTimeout(1000);
+//                    for (String line; (line = reader.readLine()) != null; ) {
+//                        serverResponse = serverResponse + line;
+//                    }
+//                    System.out.println(serverResponse);
+//                    respRecieved = true;
+//                } catch (SocketTimeoutException e) {
+//
+//                    connectionError = true;
+//                    e.printStackTrace();
+//                } catch(IOException e) {
+//                    connectionError = true;
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//        });
+//        requester.start();
+//    }
 
-                    connectionError = true;
-                    e.printStackTrace();
-                } catch(IOException e) {
-                    connectionError = true;
-                    e.printStackTrace();
-                }
-            }
 
-        });
-        requester.start();
-    }
-
-
-    public void makeAsynchronusRequest(String url) {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        //final ArrayList<String> myResp = new ArrayList<String>();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        System.out.println("RESPONSE RECEiVED");
-                        serverResponse = response;
-                        System.out.println("RESP   " + response);
-                        respRecieved = true;
-                      //  doNotify(responseWait);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                System.out.println(error.toString());
-                connectionError = true;
-                serverResponse = "ERROR";
-                //respRecieved = true;
-               // doNotify(responseWait);
-            }
-        });
-        queue.add(stringRequest);
-
-    }
+//    public void makeAsynchronusRequest(String url) {
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//        //final ArrayList<String> myResp = new ArrayList<String>();
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        // Display the first 500 characters of the response string.
+//                        System.out.println("RESPONSE RECEiVED");
+//                        serverResponse = response;
+//                        System.out.println("RESP   " + response);
+//                        respRecieved = true;
+//                      //  doNotify(responseWait);
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                System.out.println(error.toString());
+//                connectionError = true;
+//                serverResponse = "ERROR";
+//                //respRecieved = true;
+//               // doNotify(responseWait);
+//            }
+//        });
+//        queue.add(stringRequest);
+//
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -380,12 +378,11 @@ public class Login extends AppCompatActivity {
 
         if(!isValidEmail(email.getText().toString())){
 
-            System.out.println("INVALID EMAIL ENTERED");
+         //   System.out.println("INVALID EMAIL ENTERED");
             showToast("INVALID EMAIL ENTERED");
             return;
         }
         EditText password = (EditText)findViewById(R.id.passwordIn);
-        serverResponse ="";
         GPSTracker gps = new GPSTracker(this);
         if(!gps.canGetLocation()) {
             showToast("PLEASE ENABLE GPS AND TRY AGAIN");
@@ -394,12 +391,24 @@ public class Login extends AppCompatActivity {
         }
         double latitude = gps.getLatitude();
         double longitude = gps.getLongitude();
-        String loginRequest = serverURL+"/"+"-loginRequest-"+email.getText().toString()+"-"+
+        String loginRequest = globalData.serverURL+"/"+"-loginRequest-"+email.getText().toString()+"-"+
                 HashPassword(password.getText().toString())+"-"+String.valueOf(latitude)+"-"+String.valueOf(longitude);
         spinner.setVisibility(View.VISIBLE);
         globalData.email = email.getText().toString();
         AsyncTaskRunner runner = new AsyncTaskRunner();
         runner.execute(loginRequest);
+    }
+
+    public void emailClicked(View view) {
+        EditText email = (EditText)findViewById(R.id.emailInLogin);
+        email.setText("");
+        return;
+    }
+
+    public void passwordClicked(View view) {
+        EditText pass = (EditText)findViewById(R.id.passwordIn);
+        pass.setText("");
+        return;
     }
 
 
@@ -413,22 +422,11 @@ public class Login extends AppCompatActivity {
     public void devAccess(View view) {
        // startActivity(new Intent(this,main_deck_page.class));
         AsyncTaskRunner runner = new AsyncTaskRunner();
-        String apple = serverURL+"/-test";
+        String apple = globalData.serverURL+"/-test";
         runner.execute(apple);
-      //  fetchData();
 
     }
 
-    public void fetchData() {
-        Intent main_deck_page = new Intent(this,main_deck_page.class);
-       // ProgressBar spinner = (ProgressBar)findViewById(R.id.spinner);
-        spinner.setVisibility(View.VISIBLE);
-//        for(int i = 0; i < 5000000;i++) {
-//            System.out.println("FETCHING DATA");
-//        }
-      //  spinner.setVisibility(View.GONE);
-       // startActivity(main_deck_page);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

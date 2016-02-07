@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -41,8 +42,10 @@ public class addCustomMnemonic extends AppCompatActivity {
     public Mnemonic createdMnemonic;
     public Context context = this;
 
+
         EditText mnemonicText;
         Button submit;
+        ProgressBar spinner;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +60,24 @@ public class addCustomMnemonic extends AppCompatActivity {
             mnemonicText = (EditText)findViewById(R.id.mnemonicInput);
             creatorid = preferences.getInt("creatorid", 0);
             wordid = preferences.getInt("wordid",0);
+            spinner = (ProgressBar)findViewById(R.id.spinner);
+            spinner.setVisibility(View.INVISIBLE);
         }
 
 
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void submitMnemonic(View view) throws UnsupportedEncodingException {
 
+        if(spinner.isActivated()){
+            return;
+        }
+
         String data = mnemonicText.getText().toString();
+        if(data.length() == 0 ) {
+            showToast("Nothing Entered !");
+            return;
+        }
         if(data.contains("-")){
             showToast("The Character '-' is not allowed, please remove it from your submission");
             return;
@@ -96,6 +110,7 @@ public class addCustomMnemonic extends AppCompatActivity {
 
 
         AsyncTaskRunner runner = new AsyncTaskRunner();
+        spinner.setVisibility(View.VISIBLE);
         runner.execute(finalRequest);
 
     }
@@ -104,7 +119,7 @@ public class addCustomMnemonic extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     protected void onPause() {
         super.onPause();
-
+        spinner.setVisibility(View.INVISIBLE);
         String tosave = gson.toJson(globalData);
         editor.putString("globalData",tosave);
         editor.apply();
@@ -160,22 +175,25 @@ public class addCustomMnemonic extends AppCompatActivity {
 
             if(result.equals("error")){
                 showToast("Error: Could not submit.The connection timed out. Make sure you have a working internet connection");
+                spinner.setVisibility(View.INVISIBLE);
                 return;
             }
 
             if(result.equals("dbQueryError")){
                 showToast("Error Submitting to database");
                 System.out.println("Error SUBMITTING TO DATABASE");
+                spinner.setVisibility(View.INVISIBLE);
                 return;
             }
 
             if(resVector[0].equals("success")){
                 int id = Integer.parseInt(resVector[1]);
                 createdMnemonic.id = id;
-                globalData.putMnemonicforWord(wordid,createdMnemonic);
+                globalData.putMnemonicforWord(wordid, createdMnemonic);
                 showToast("Mnemonic Saved to Database");
                 Intent intent = new Intent(context,meaning_mnemonic_page.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                spinner.setVisibility(View.INVISIBLE);
                 startActivity(intent);
             }
 
