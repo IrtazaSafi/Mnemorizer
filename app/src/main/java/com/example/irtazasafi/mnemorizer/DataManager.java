@@ -43,6 +43,7 @@ public class DataManager {
     public void putMnemonicforWord(int _wordid,Mnemonic mnemonic) {
         for (VocabularyWord word : vocabularyWords) {
             if (word.id == _wordid) {
+                System.out.println("*****ADDED*****");
                 word.mnemonics.add(mnemonic);
             }
         }

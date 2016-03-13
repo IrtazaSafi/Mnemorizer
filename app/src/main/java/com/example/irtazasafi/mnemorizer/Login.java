@@ -41,6 +41,7 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -103,7 +104,10 @@ public class Login extends AppCompatActivity {
 
             Intent main_deck_page = new Intent(context,main_deck_page.class);
             main_deck_page.putExtra("userID", userID);
-            if(preferences.getString("globalData","empty").equals("empty")) {
+           if(preferences.getString("globalData","empty").equals("empty")) {
+
+
+                System.out.println("***********************************LOADING NEW GLOBAL DATA ************************************");
                 // use newly created globalData
                 Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
                 Gson serializer = new Gson();
@@ -131,6 +135,8 @@ public class Login extends AppCompatActivity {
                 editor.apply();
 
             } else {
+
+                System.out.println("***********************************LOADING EXISTING GLOBAL DATA ************************************");
                 Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
                 Gson serializer = new Gson();
                 // load existing data
@@ -140,8 +146,14 @@ public class Login extends AppCompatActivity {
 
                 //globalData.vocabularyWords.clear();
 
+               for(VocabularyWord myword:globalData.vocabularyWords) {
+
+                   myword.mnemonics.clear();
+
+               }
+                System.out.println("");
+               
                 for(VocabularyWord word:words) {
-                    word.mnemonics.clear();
                     for(Mnemonic mnemonic : word.mnemonics) {
                         globalData.putMnemonicforWord(mnemonic.wordid,mnemonic);
                     }
@@ -150,21 +162,21 @@ public class Login extends AppCompatActivity {
                     Collections.sort(word.mnemonics);
                 }
 
-//                System.out.println("*********************************Mnemonics Recieved ");
-//
-//                for(VocabularyWord word : globalData.vocabularyWords) {
-//                    System.out.println("***********************************  " + word.word);
-//                    for(Mnemonic mnemonic : word.mnemonics) {
-//                        System.out.println("***********************************  " + mnemonic.mnemonic);
-//                    }
-//                }
+                System.out.println("*********************************Mnemonics Recieved ");
+
+                for(VocabularyWord word : globalData.vocabularyWords) {
+                    System.out.println("***********************************  " + word.word);
+                    for(Mnemonic mnemonic : word.mnemonics) {
+                        System.out.println("***********************************  " + mnemonic.mnemonic);
+                    }
+                }
 
 
 
-                String serializedData = serializer.toJson(globalData);
-                editor.putString("globalData", serializedData);
-                editor.apply();
-            }
+            String serializedData = serializer.toJson(globalData);
+            editor.putString("globalData", serializedData);
+            editor.apply();
+        }
 
             showToast("Login Successful");
             editor.putBoolean("loggedIn", true);
@@ -255,10 +267,13 @@ public class Login extends AppCompatActivity {
 
     protected void onResume() {
 
+        super.onResume();
       //  System.out.println("*******************************in ON RESUME boolean value is " + preferences.getBoolean("loggedIn",false));
       //  System.out.println("*************************************" + preferences.getString("globalData","empty"));
 
         if(preferences.getBoolean("loggedIn",false)) {
+
+            System.out.println("********************************WAS ALREADY LOGGED IN *****************************");
 
             GPSTracker gps = new GPSTracker(this);
             if(!gps.canGetLocation()) {
@@ -277,12 +292,15 @@ public class Login extends AppCompatActivity {
                     "-"+String.valueOf(longitude);
             AsyncTaskRunner runner = new AsyncTaskRunner();
             runner.execute(loginRequest);
+
         }
 
 
 
 
-        super.onResume();
+
+
+
     }
 
     public static String HashPassword(String plaintext) throws NoSuchAlgorithmException {

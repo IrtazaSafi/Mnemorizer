@@ -35,7 +35,7 @@ public class single_word_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 
-        System.out.println("ON CREATE OF SINGLE_WORD_PAGE LAUNCHED");
+        //System.out.println("ON CREATE OF SINGLE_WORD_PAGE LAUNCHED");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_word_page);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -58,8 +58,8 @@ public class single_word_page extends AppCompatActivity {
         int deckid = preferences.getInt("deckid",0);
         words = globalData.getWordsforDeck(deckid);
 
-        System.out.println("********* DECK ID RETURNED IS " + deckid);
-        System.out.println("*******SIZE OF WORDS is  " + words.size());
+//        System.out.println("********* DECK ID RETURNED IS " + deckid);
+//        System.out.println("*******SIZE OF WORDS is  " + words.size());
 
         wordView.setText(words.get(0).word);
         prevIndex = 0;
@@ -76,11 +76,11 @@ public class single_word_page extends AppCompatActivity {
 
     protected void onResume() {
 
-        System.out.println("********** onResume in singeWORDPAGE CALLED");
-        System.out.println("*********** VALUE OF PREVIOUS INDEX IS " + prevIndex);
+//        System.out.println("********** onResume in singeWORDPAGE CALLED");
+//        System.out.println("*********** VALUE OF PREVIOUS INDEX IS " + prevIndex);
         int nextwordIndex = (prevIndex+1)%words.size();
         prevIndex = nextwordIndex;
-        System.out.println("********** VALUE OF NEXT WORD INDEX IS  " + nextwordIndex);
+        //System.out.println("********** VALUE OF NEXT WORD INDEX IS  " + nextwordIndex);
         VocabularyWord nextWord = words.get(nextwordIndex);
         currwordID = nextWord.id;
 

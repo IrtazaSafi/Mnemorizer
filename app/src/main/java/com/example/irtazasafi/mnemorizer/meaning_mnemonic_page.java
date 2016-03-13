@@ -109,7 +109,7 @@ public class meaning_mnemonic_page extends AppCompatActivity {
 
 
     protected void onResume() {
-        System.out.println("********** onResume in meaningMNEMONICPAGE CALLED");
+      // System.out.println("********** onResume in meaningMNEMONICPAGE CALLED");
 
         globalData = gson.fromJson(preferences.getString("globalData", ""), DataManager.class);
         currWordID = preferences.getInt("wordid", 0);
@@ -325,7 +325,7 @@ public class meaning_mnemonic_page extends AppCompatActivity {
 
             boolean upthumbs = false;
 
-            System.out.println("********** RESULT IS  " + result);
+       //     System.out.println("********** RESULT IS  " + result);
 
             if(result.contains("thumbsUp")) {
                 upthumbs = true;
