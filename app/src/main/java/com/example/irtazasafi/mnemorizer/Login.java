@@ -184,6 +184,7 @@ public class Login extends AppCompatActivity {
 
             spinner.setVisibility(View.INVISIBLE);
             startActivity(main_deck_page);
+            finish();
            // fetchData();
         } else {
             showToast("Login Failed, either account doesn't exist or you entered invalid credentials");
@@ -234,17 +235,44 @@ public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        spinner= (ProgressBar)findViewById(R.id.spinner);
-        spinner.setVisibility(View.GONE);
+
             preferences = PreferenceManager.getDefaultSharedPreferences(this);
             editor = preferences.edit();
+
       //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
        // setSupportActionBar(toolbar);
        //
         globalData = new DataManager(0,"");
-           // this.overridePendingTransition(R.anim.slide_left,R.anim.slide_right);
+        if(preferences.getBoolean("loggedIn",false)) {
+
+            System.out.println("********************************WAS ALREADY LOGGED IN *****************************");
+
+            GPSTracker gps = new GPSTracker(this);
+            if(!gps.canGetLocation()) {
+                showToast("PLEASE ENABLE GPS AND TRY AGAIN");
+                gps.showSettingsAlert();
+                return;
+            }
+            double latitude = gps.getLatitude();
+            double longitude = gps.getLongitude();
+            Gson serializer = new Gson();
+            DataManager globalData = serializer.fromJson(preferences.getString("globalData", "empty"), DataManager.class);
+
+            //System.out.println("**********************curruser ID IS" + globalData.userID);
+
+            String loginRequest = globalData.serverURL+"/"+"-loginRequestVerif" + "-"+Integer.toString(globalData.userID)+"-"+String.valueOf(latitude)+
+                    "-"+String.valueOf(longitude);
+            AsyncTaskRunner runner = new AsyncTaskRunner();
+            runner.execute(loginRequest);
+
+        }
+
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
+        spinner= (ProgressBar)findViewById(R.id.spinner);
+        spinner.setVisibility(View.GONE);
+
+        // this.overridePendingTransition(R.anim.slide_left,R.anim.slide_right);
 
 
         }
@@ -270,34 +298,6 @@ public class Login extends AppCompatActivity {
         super.onResume();
       //  System.out.println("*******************************in ON RESUME boolean value is " + preferences.getBoolean("loggedIn",false));
       //  System.out.println("*************************************" + preferences.getString("globalData","empty"));
-
-        if(preferences.getBoolean("loggedIn",false)) {
-
-            System.out.println("********************************WAS ALREADY LOGGED IN *****************************");
-
-            GPSTracker gps = new GPSTracker(this);
-            if(!gps.canGetLocation()) {
-                showToast("PLEASE ENABLE GPS AND TRY AGAIN");
-                gps.showSettingsAlert();
-                return;
-            }
-            double latitude = gps.getLatitude();
-            double longitude = gps.getLongitude();
-            Gson serializer = new Gson();
-            DataManager globalData = serializer.fromJson(preferences.getString("globalData", "empty"), DataManager.class);
-
-            //System.out.println("**********************curruser ID IS" + globalData.userID);
-
-            String loginRequest = globalData.serverURL+"/"+"-loginRequestVerif" + "-"+Integer.toString(globalData.userID)+"-"+String.valueOf(latitude)+
-                    "-"+String.valueOf(longitude);
-            AsyncTaskRunner runner = new AsyncTaskRunner();
-            runner.execute(loginRequest);
-
-        }
-
-
-
-
 
 
 
