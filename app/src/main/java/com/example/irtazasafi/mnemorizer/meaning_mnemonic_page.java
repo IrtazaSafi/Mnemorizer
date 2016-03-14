@@ -82,7 +82,6 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         // initialize variables
         //this.overridePendingTransition(R.anim.slide_right,R.anim.slide_left);
 
-
         wordDisplay = (TextView)findViewById(R.id.wordDisplay);
         meaningDisplay = (TextView)findViewById(R.id.meaningDisplay);
         iKnew = (Button)findViewById(R.id.iKnew);
@@ -90,7 +89,7 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         rightButton = (Button)findViewById(R.id.rightButton);
         locality = (Button)findViewById(R.id.locality);
         //rightButton.setBackgroundColor(Color.);
-        gcd = new Geocoder(this, Locale.getDefault());;
+
 
         mnemonicDisplay = (Button)findViewById(R.id.mnemonicsDisplay);
         masteredDisplay = (Button)findViewById(R.id.masteredDisplay);
@@ -99,65 +98,88 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         rankDisplay = (Button)findViewById(R.id.rankDisplay);
         likeCounter = (Button)findViewById(R.id.likesDisplay);
         thumbsUp = (Button)findViewById(R.id.thumbsUp);
+        gcd = new Geocoder(this, Locale.getDefault());
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = preferences.edit();
         gson = new Gson();
+
         mnemonicIndex = 0;
+
         // initialize global Data and wordid
 
+    }
+
+
+    protected void uiHelper() {
+
+        Thread maker = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+
+
+            }
+        });
+
+        maker.start();
+    }
+
+    private class asyncUImaker extends AsyncTask<String,String,String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            return "NoResult";
+        }
+
+        protected void onPostExecute(String result) {
+
+            globalData = gson.fromJson(preferences.getString("globalData", ""), DataManager.class);
+            currWordID = preferences.getInt("wordid", 0);
+            currentWord = globalData.getWord(currWordID);
+            mnemonics = currentWord.getMnemonics();
+            likeCounter.setText("0");
+
+            if(currentWord.mastered == true) {
+
+                masteredDisplay.setVisibility(View.VISIBLE);
+
+            }
+
+            if (mnemonics.size() == 0){
+                mnemonicDisplay.setText("No Mnemonics Available");
+                rankDisplay.setText("0");
+            } else {
+
+                mnemonicDisplay.setText(mnemonics.get(0).mnemonic);
+                currentMnemonic = mnemonics.get(0);
+                asyncFetchLocation locFetcher = new asyncFetchLocation();
+                locFetcher.execute("FETCH");
+
+                likeCounter.setText(Integer.toString(currentMnemonic.score));
+                if(mnemonics.get(0).liked == true) {
+                    thumbsUp.setBackgroundResource(R.drawable.thumbsupblue);
+                }
+                rankDisplay.setText("1"+ "/" + Integer.toString(mnemonics.size()));
+            }
+
+            // set initial view values
+
+            wordDisplay.setText(currentWord.word);
+            meaningDisplay.setText(currentWord.meaning);
+
+        }
     }
 
 
     protected void onResume() {
       // System.out.println("********** onResume in meaningMNEMONICPAGE CALLED");
 
-        globalData = gson.fromJson(preferences.getString("globalData", ""), DataManager.class);
-        currWordID = preferences.getInt("wordid", 0);
-        currentWord = globalData.getWord(currWordID);
-        mnemonics = currentWord.getMnemonics();
-        likeCounter.setText("0");
-
-        if(currentWord.mastered == true) {
-
-            masteredDisplay.setVisibility(View.VISIBLE);
-
-        }
-
-        if (mnemonics.size() == 0){
-            mnemonicDisplay.setText("No Mnemonics Available");
-            rankDisplay.setText("0");
-        } else {
-
-            mnemonicDisplay.setText(mnemonics.get(0).mnemonic);
-            currentMnemonic = mnemonics.get(0);
-            String localAddress = "";
-            try {
-                List<Address> addresses = gcd.getFromLocation(currentMnemonic.latitude, currentMnemonic.longitude, 1);
-                if(addresses.size() != 0) {
-                    localAddress = addresses.get(0).getLocality();
-                    String further = addresses.get(0).getSubLocality();
-                    locality.setText(localAddress + "," + further);
-                } else{
-                    locality.setText("Location Not Available");
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            likeCounter.setText(Integer.toString(currentMnemonic.score));
-            if(mnemonics.get(0).liked == true) {
-                thumbsUp.setBackgroundResource(R.drawable.thumbsupblue);
-            }
-            rankDisplay.setText("1"+ "/" + Integer.toString(mnemonics.size()));
-        }
-
-        // set initial view values
-
-        wordDisplay.setText(currentWord.word);
-        meaningDisplay.setText(currentWord.meaning);
-
+        //uiHelper();
+        asyncUImaker builder = new asyncUImaker();
+        builder.execute("MakeUI");
         super.onResume();
+
 
 
     }
@@ -200,15 +222,43 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    private class asyncFetchLocation extends AsyncTask<String,String,String> {
+
+
+        @Override
+        protected String doInBackground(String... params) {
+            return "NULL";
+        }
+
+
+        protected void onPostExecute(String result) {
+            List<Address> addresses = null;
+            try {
+                addresses = gcd.getFromLocation(currentMnemonic.latitude,currentMnemonic.longitude, 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if(addresses.size()!=0) {
+            String localAddress = addresses.get(0).getLocality();
+            String further = addresses.get(0).getSubLocality();
+            locality.setText(localAddress + "," + further);
+        } else {
+            locality.setText("Location not available");
+        }
+
+        }
+    }
+
     public void rightClicked(View v) throws IOException {
         if(mnemonics.size() <= 1) {
             return;
         }
         int index = Math.abs((mnemonicIndex+1)%mnemonics.size());
         mnemonicIndex = index;
-        System.out.println("*********************************************** index is" + " " + index);
-
-        System.out.println("*********************************************** size is" + " " + mnemonics.size());
+//        System.out.println("*********************************************** index is" + " " + index);
+//
+//        System.out.println("*********************************************** size is" + " " + mnemonics.size());
         if(mnemonics.get(index).liked == true) {
             thumbsUp.setBackgroundResource(R.drawable.thumbsupblue);
         } else {
@@ -216,16 +266,12 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         }
         mnemonicDisplay.setText(mnemonics.get(index).mnemonic);
         currentMnemonic = mnemonics.get(index);
-        List<Address> addresses = gcd.getFromLocation(currentMnemonic.latitude,currentMnemonic.longitude, 1);
-        if(addresses.size()!=0) {
-            String localAddress = addresses.get(0).getLocality();
-            String further = addresses.get(0).getSubLocality();
-            locality.setText(localAddress + "," + further);
-        } else {
-            locality.setText("Location not available");
-        }
+
         rankDisplay.setText(Integer.toString(index + 1) + "/" + Integer.toString(mnemonics.size()));
         likeCounter.setText(Integer.toString(currentMnemonic.score));
+        asyncFetchLocation locFetcher = new asyncFetchLocation();
+        locFetcher.execute("Fetch");
+
 
     }
 
@@ -244,16 +290,11 @@ public class meaning_mnemonic_page extends AppCompatActivity {
         mnemonicIndex = index;
         mnemonicDisplay.setText(mnemonics.get(index).mnemonic);
         currentMnemonic = mnemonics.get(index);
-        List<Address> addresses = gcd.getFromLocation(currentMnemonic.latitude,currentMnemonic.longitude, 1);
-        if(addresses.size()!=0) {
-            String localAddress = addresses.get(0).getLocality();
-            String further = addresses.get(0).getSubLocality();
-            locality.setText(localAddress + "," + further);
-        } else {
-            locality.setText("Location not available");
-        }
         rankDisplay.setText(Integer.toString(index + 1) + "/" + Integer.toString(mnemonics.size()));
         likeCounter.setText(Integer.toString(currentMnemonic.score));
+        asyncFetchLocation locFetcher = new asyncFetchLocation();
+        locFetcher.execute("Fetch");
+
     }
 
     @TargetApi(Build.VERSION_CODES.GINGERBREAD)

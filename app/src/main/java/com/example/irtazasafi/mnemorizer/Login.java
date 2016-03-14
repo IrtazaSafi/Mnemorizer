@@ -152,7 +152,7 @@ public class Login extends AppCompatActivity {
 
                }
                 System.out.println("");
-               
+
                 for(VocabularyWord word:words) {
                     for(Mnemonic mnemonic : word.mnemonics) {
                         globalData.putMnemonicforWord(mnemonic.wordid,mnemonic);
@@ -162,14 +162,14 @@ public class Login extends AppCompatActivity {
                     Collections.sort(word.mnemonics);
                 }
 
-                System.out.println("*********************************Mnemonics Recieved ");
-
-                for(VocabularyWord word : globalData.vocabularyWords) {
-                    System.out.println("***********************************  " + word.word);
-                    for(Mnemonic mnemonic : word.mnemonics) {
-                        System.out.println("***********************************  " + mnemonic.mnemonic);
-                    }
-                }
+//                System.out.println("*********************************Mnemonics Recieved ");
+//
+//                for(VocabularyWord word : globalData.vocabularyWords) {
+//                    System.out.println("***********************************  " + word.word);
+//                    for(Mnemonic mnemonic : word.mnemonics) {
+//                        System.out.println("***********************************  " + mnemonic.mnemonic);
+//                    }
+//                }
 
 
 

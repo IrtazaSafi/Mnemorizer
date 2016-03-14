@@ -104,9 +104,10 @@ public class single_word_page extends AppCompatActivity {
     public void tapToSeeMeaning(View v) {
 
         Intent intent = new Intent(this,meaning_mnemonic_page.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         // pass three things to nextActivity , wordid, globalData
 
-        editor.putInt("wordid",currwordID);
+        editor.putInt("wordid", currwordID);
         editor.apply();
 
         startActivity(intent);
