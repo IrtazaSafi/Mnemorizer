@@ -56,6 +56,7 @@ public class Login extends AppCompatActivity {
     DataManager globalData;
     ProgressBar spinner;
 
+
     private class AsyncTaskRunner extends AsyncTask<String, String, String> {
 
         private String makeHTTPRequest(String url,String method){
@@ -235,6 +236,11 @@ public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+            finish();
+            return;
+        }
 
             preferences = PreferenceManager.getDefaultSharedPreferences(this);
             editor = preferences.edit();
@@ -267,7 +273,7 @@ public class Login extends AppCompatActivity {
 
         }
 
-        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
         spinner= (ProgressBar)findViewById(R.id.spinner);
         spinner.setVisibility(View.GONE);
@@ -287,7 +293,6 @@ public class Login extends AppCompatActivity {
     protected void onDestroy() {
 
      //   System.out.println("***************** ***********************************ON DESTROY CALLED IN LOGIN ");
-
 
         super.onDestroy();
     }
